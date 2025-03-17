@@ -1,0 +1,30 @@
+@mixin flex-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin flex-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1em;
+    margin: 2em;
+    border-radius: .5em;
+}
+
+@mixin flex-spacing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

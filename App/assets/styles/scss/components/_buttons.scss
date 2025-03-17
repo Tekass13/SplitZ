@@ -1,0 +1,50 @@
+.button {  
+    background-color: $primary;
+    color: $dark;
+    border: none;
+    border-radius: .5em;
+    margin: 2em auto;
+    width: 8em;
+    padding: .5em;
+    &:hover {
+        cursor: pointer;
+        background-color: $hover;
+        color: $primary;
+        transition: all .25s ease-in;
+    }
+}
+
+.form-button {
+    @include flex-align;
+}
+
+.close-button {
+    border:none;
+    background-color: transparent;
+    width: 0;
+    height: 0;
+}
+
+.close-button-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5em;
+    color: $light;
+}
+
+.close-button-icon:hover,
+    #search-button:hover {
+        cursor: pointer;
+        background-color: $hover;
+        color:$primary;
+        border-radius: 50%;
+        transition: all .25 ease-in;
+    }
+
+#search-button {
+    background-color: $dark;
+    color: $primary;
+    border: none;
+    padding: .5em;
+}

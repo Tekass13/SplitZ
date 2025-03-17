@@ -1,0 +1,31 @@
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-start-start-radius: 1vw;
+    border-start-end-radius: 1vw;
+    width: 100%;
+    background-color: $primary;
+    &,
+    .container-footer {
+        width: 100%;
+        min-height: 5vh;
+    }
+
+    & .container-footer {
+        @include flex-nav;
+        padding: 1em;
+        margin: 0;
+    }
+
+    &,
+    & a{
+        color: $dark;
+        text-align: center;
+    }
+
+    & p {
+        font-weight: bold;
+        text-shadow: $text-shadow;
+    }
+}

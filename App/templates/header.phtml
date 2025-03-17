@@ -1,0 +1,46 @@
+<header id="header">
+    <nav class="nav-bar">
+        <a href="index.php?route=home">
+            <img class="icon" src="assets/img/logo.png" alt="logo de l'application SplitZ représentant un portefeuille et des pièces sur un fond vert pale">
+        </a>
+        <p id="title">SplitZ</p>
+        <ul class="container-buttons">
+            <li class="nav-button">
+                <a href="index.php?route=home">Accueil</a>
+            </li>
+            <li class="nav-button">
+                <a href="index.php?route=budgets">Budgets</a>
+            </li>
+            <li class="nav-button">
+                <a href="index.php?route=list-contact">Contacts</a>
+            </li>
+        </ul>
+        <?php if (isset($_SESSION['user'])) { ?>
+            <div class="container-profil">
+                <img class="icon" src="assets/img/defaut-profil.png" alt="Image de profil utilisateur">
+                <button id="button-hidden" class="icon-profil" href="#">
+                    <p><?= $_SESSION['username'] ?> </p>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <ul class="list-items" id="username">
+                    <li class="hidden item"><a href="index.php?route=profil">Profil</a></li>
+                    <li class="hidden item"><a href="index.php?route=logout">Deconnexion</a></li>
+                    <li class="hidden item">
+                        <a href="index.php?route=inbox">
+                            Boite de récéption
+                            <?php 
+                            if (isset($_SESSION['user'])) {
+                                $messageManager = new MessageManager();
+                                $unreadCount = $messageManager->countUnreadMessages($_SESSION['user']);
+                                if ($unreadCount > 0) {
+                                    echo '<p class="badge">' . $unreadCount . '</p>';
+                                }
+                            }
+                            ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        <?php } ?>
+    </nav>
+</header>

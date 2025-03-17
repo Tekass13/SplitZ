@@ -1,0 +1,67 @@
+@import '../abstracts/variables.scss';
+@import '../abstracts/mixin.scss';
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    background-color: $dark;
+    color: $light;
+    width: 100%;
+    padding: 30vh 0;
+    font-family: "Zain", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+h1,
+h2,
+h3 {
+    @include flex-align;
+    width: 100%;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: $primary;
+}
+
+a {
+    text-decoration: none;
+    color: $primary;
+    &:hover {
+        color: $hover;
+        cursor: pointer;
+    }
+}
+
+li {
+    list-style: none;
+}
+
+span {
+    color: $primary;
+}
+
+.icon {
+    width: 2.5em;
+    height: auto;
+    border-radius: 50%;
+}
+
+i {
+    padding: .2em;
+}
+
+.hidden {
+    display: none;
+}

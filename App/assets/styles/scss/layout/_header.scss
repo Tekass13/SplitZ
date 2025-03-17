@@ -1,0 +1,113 @@
+#header,
+#header a{
+    width: 100%;
+    min-height: 20vh;
+    color: $dark;
+    background-color: $primary;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-end-end-radius: 1vw;
+    border-end-start-radius: 1vw;
+    width: 100%;
+    z-index: 100;
+    & .icon {
+        display: block;
+        margin: auto;
+    }
+    & #title {
+        @include flex-align;
+        font-family: "Zain", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+        font-size: 2rem;
+        font-weight: bolder;
+        text-shadow: $text-shadow;
+        width: 100%;
+        margin: 0;
+    }
+    & .nav-bar {
+        width: 100%;
+        padding: 1em 0;
+        & .container-buttons {
+            @include flex-nav;
+            padding-top: 2em;
+            padding-left: 0;
+            margin: 0;
+            & a {
+                padding: .5em;
+                border:none;
+                position: relative;
+                &:hover {
+                    font-weight: bolder;
+                }
+                &::after {
+                    content:'';
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 0.175em;
+                    background-color: $dark;
+                    transform: scale(0, 1);
+                    transform-origin: 0 100%;
+                    transition: transform .25s ease;
+                }
+                &:hover::after {
+                    transform: scale(1, 1);
+                }
+            }
+            @keyframes border {
+                from {
+                    border-inline-end-width: 0%;
+                } to {
+                    border-inline-end-width: 100%;
+                }
+            }
+        }
+        & .container-profil {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 1em;
+            & p {
+                margin: 0;
+                font-weight: bold;
+                text-shadow: $text-shadow;
+            }
+
+            & .list-items {
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                margin: 0;
+            }
+
+            & .item,
+            & .item a {
+                background-color: $hover;
+                color:$primary;
+                padding: .2em;
+            }
+
+            & .icon-profil {
+                @include flex-spacing;
+                padding: .2em;
+                color: $dark;
+                border: none;
+                border-top-right-radius: .2em;
+                border-top-left-radius: .2em;
+                background-color: transparent;
+                &:hover,
+                .icon-profil:hover {
+                    background-color: $hover;
+                    color:$primary;
+                    transition: all .25 ease-in;
+                }
+            }
+        }
+    }
+}

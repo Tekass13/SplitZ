@@ -1,0 +1,93 @@
+splitz
+Application de gestion des dépenses
+
+Introduction
+Contexte du projet :
+ 
+Expression des besoins
+Description du service :
+
+Spécifications fonctionnelles
+Fonctionnalités clés:
+- 
+Les personas
+L'utilisateur :
+L’administrateur :
+
+Les scénarios d’utilisation
+
+
+Les fonctionnalités détaillées
+Partie utilisateur : front-office
+Partie coordinateur des évènements : back-office
+Partie administration des comptes : back-office
+
+Les maquettes
+ 
+
+
+Spécifications techniques
+
+Designer :
+
+Developpeur font-end :
+
+Developpeur back-end :
+
+Testeur :
+
+Technologies
+
+Frontend :
+
+Backend :
+
+Hébergement :
+
+Sécurité :
+
+Éco-conception
+
+
+Accessibilité
+
+
+Référencement
+
+
+Protection des données personnelles
+
+
+Rôles et droits
+
+
+ 
+
+Architecture technique
+
+Schéma architecture Client / Serveur
+
+
+Schéma MVC avec routeur
+
+
+MCD : modèle de conception des données
+ 
+
+Veille technique
+ 
+
+Contraintes
+
+Sécurité
+
+
+Budget
+ 
+
+Organisation
+Équipe
+
+Outils de travail collaboratif
+
+Rétro planning

@@ -1,0 +1,123 @@
+# POLITIQUE DE CONFIDENTIALITÉ
+## SPLITZ - Site de gestion des dépenses de groupe
+
+*Dernière mise à jour : 24 février 2025*
+
+## 1. INTRODUCTION
+
+SPLITZ ("nous", "notre", "nos") s'engage à protéger la vie privée des utilisateurs ("vous", "votre") de notre plateforme de gestion des dépenses de groupe. Cette politique de confidentialité explique comment nous collectons, utilisons, partageons et protégeons vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et aux autres législations applicables en matière de protection des données.
+
+En utilisant notre service, vous acceptez les pratiques décrites dans cette politique de confidentialité.
+
+## 2. DONNÉES COLLECTÉES
+
+### 2.1 Données que vous nous fournissez
+
+Nous collectons les informations que vous nous fournissez directement lorsque vous :
+- Créez un compte (identifiant, adresse e-mail, mot de passe)
+- Complétez votre profil (numéro de téléphone)
+- Créez et gérez des budgets et des dépenses
+- Ajoutez des contacts et partagez des dépenses
+- Nous contactez via notre formulaire de contact
+
+### 2.2 Données collectées automatiquement
+
+Nous collectons automatiquement certaines informations lorsque vous utilisez notre service, notamment :
+- Données de connexion (date et heure d'accès, pages consultées)
+- Informations sur votre appareil (type d'appareil, système d'exploitation, navigateur)
+- Adresse IP
+
+## 3. UTILISATION DES DONNÉES
+
+Nous utilisons vos données personnelles pour les finalités suivantes :
+
+### 3.1 Fourniture du service
+- Créer et gérer votre compte utilisateur
+- Vous permettre de créer et gérer des budgets et des dépenses
+- Faciliter le partage des dépenses entre utilisateurs
+- Vous envoyer des notifications concernant vos budgets et transactions
+
+### 3.2 Amélioration du service
+- Analyser l'utilisation de notre plateforme
+- Identifier et corriger les problèmes techniques
+- Développer de nouvelles fonctionnalités
+
+### 3.3 Communication
+- Répondre à vos demandes et questions
+- Vous informer des mises à jour importantes du service
+
+## 4. BASE JURIDIQUE DU TRAITEMENT
+
+Nous traitons vos données personnelles sur les bases juridiques suivantes :
+
+- **Exécution du contrat** : Le traitement est nécessaire pour vous fournir notre service de gestion des dépenses.
+- **Consentement** : Lorsque vous nous donnez explicitement votre consentement pour certains traitements.
+- **Intérêts légitimes** : Lorsque le traitement est nécessaire pour nos intérêts légitimes ou ceux d'un tiers, sans porter atteinte à vos droits fondamentaux.
+- **Obligation légale** : Lorsque nous sommes légalement tenus de traiter vos données.
+
+## 5. PARTAGE DES DONNÉES
+
+### 5.1 Partage avec d'autres utilisateurs
+Dans le cadre du fonctionnement normal du service, certaines de vos informations (identifiant, données concernant les dépenses partagées) sont visibles par les autres utilisateurs avec lesquels vous partagez des budgets.
+
+### 5.2 Prestataires de services
+Nous pouvons partager vos données avec des prestataires de services tiers qui nous aident à exploiter notre service (hébergement, maintenance, analyse). Ces prestataires sont tenus de respecter la confidentialité de vos données et ne peuvent les utiliser qu'aux fins spécifiées par nous.
+
+### 5.3 Obligations légales
+Nous pouvons divulguer vos données personnelles si la loi nous y oblige ou en réponse à des demandes valides des autorités publiques.
+
+## 6. SÉCURITÉ DES DONNÉES
+
+Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données personnelles contre la perte, l'accès non autorisé, la divulgation, l'altération ou la destruction, notamment :
+
+- Chiffrement des données sensibles (notamment les mots de passe)
+- Authentification sécurisée (JWT)
+- Protection contre les injections SQL, XSS et CSRF
+- Sessions sécurisées
+- Accès restreint aux données personnelles
+
+## 7. CONSERVATION DES DONNÉES
+
+Nous conservons vos données personnelles aussi longtemps que nécessaire pour vous fournir nos services et respecter nos obligations légales. Si vous supprimez votre compte, nous supprimerons ou anonymiserons vos données personnelles dans un délai raisonnable, sauf si nous sommes légalement tenus de les conserver plus longtemps.
+
+## 8. VOS DROITS
+
+Conformément au RGPD et aux lois applicables sur la protection des données, vous disposez des droits suivants concernant vos données personnelles :
+
+- **Droit d'accès** : Vous pouvez demander une copie des données personnelles que nous détenons à votre sujet.
+- **Droit de rectification** : Vous pouvez demander la correction des données inexactes ou incomplètes.
+- **Droit à l'effacement** : Vous pouvez demander la suppression de vos données personnelles dans certaines circonstances.
+- **Droit à la limitation du traitement** : Vous pouvez demander la limitation du traitement de vos données dans certaines circonstances.
+- **Droit à la portabilité des données** : Vous pouvez demander à recevoir vos données dans un format structuré, couramment utilisé et lisible par machine.
+- **Droit d'opposition** : Vous pouvez vous opposer au traitement de vos données dans certaines circonstances.
+- **Droit de retirer votre consentement** : Vous pouvez retirer votre consentement à tout moment.
+
+Pour exercer ces droits, veuillez nous contacter via le formulaire de contact disponible sur notre site ou par e-mail à l'adresse [contact@splitz.com].
+
+## 9. COOKIES ET TECHNOLOGIES SIMILAIRES
+
+Notre service utilise des cookies et des technologies similaires pour améliorer votre expérience utilisateur et analyser l'utilisation de notre plateforme. Vous pouvez contrôler l'utilisation des cookies via les paramètres de votre navigateur.
+
+## 10. TRANSFERTS INTERNATIONAUX DE DONNÉES
+
+Nous hébergeons vos données sur des serveurs situés dans l'Union européenne. Toutefois, si nous devions transférer vos données en dehors de l'UE, nous nous assurerions que des garanties appropriées soient en place pour protéger vos données conformément aux exigences du RGPD.
+
+## 11. PROTECTION DES MINEURS
+
+Notre service n'est pas destiné aux personnes de moins de 16 ans, et nous ne collectons pas sciemment des données personnelles concernant des enfants de moins de 16 ans. Si vous êtes un parent ou un tuteur et que vous pensez que votre enfant nous a fourni des données personnelles, veuillez nous contacter.
+
+## 12. MODIFICATIONS DE LA POLITIQUE DE CONFIDENTIALITÉ
+
+Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. La version la plus récente sera toujours disponible sur notre site web, avec la date de la dernière mise à jour. Nous vous encourageons à consulter régulièrement cette politique pour rester informé de nos pratiques en matière de confidentialité.
+
+## 13. NOUS CONTACTER
+
+Si vous avez des questions, des préoccupations ou des demandes concernant cette politique de confidentialité ou nos pratiques en matière de confidentialité, veuillez nous contacter :
+
+- Par le formulaire de contact disponible sur notre site
+- Par e-mail : [contact@splitz.com]
+- Par courrier : [Adresse postale SPLITZ]
+
+## 14. AUTORITÉ DE CONTRÔLE
+
+Si vous estimez que notre traitement de vos données personnelles enfreint les lois sur la protection des données, vous avez le droit de déposer une plainte auprès de l'autorité de contrôle compétente en matière de protection des données dans votre pays de résidence.
