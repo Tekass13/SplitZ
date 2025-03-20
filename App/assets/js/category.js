@@ -1,7 +1,12 @@
 let categories = [];
 
-// Fonction pour ajouter une nouvelle catégorie
+let btnCategory = document.getElementById('add-category-btn');
+let categoryRemove = document.getElementsByClassName('category-remove');
+
+// Ajouter une nouvelle catégorie
+
 function addCategory() {
+
     const categoryType = document.getElementById('category-type');
     const categoryName = document.getElementById('category-name');
     const categoryPrice = document.getElementById('category-price');
@@ -23,7 +28,7 @@ function addCategory() {
 
     // Créer un objet représentant la catégorie
     const category = {
-        id: Date.now(), // Identifiant unique
+        id: Date.now(),
         type: categoryType.value,
         name: categoryName.value,
         price: parseFloat(categoryPrice.value),
@@ -48,7 +53,7 @@ function addCategory() {
     categoryContact.selectedIndex = 0;
 }
 
-// Fonction pour supprimer une catégorie
+// Supprimer une catégorie
 function removeCategory(categoryId) {
     // Filtrer la catégorie à supprimer
     categories = categories.filter(category => category.id !== categoryId);
@@ -66,7 +71,7 @@ function updateCategoriesData() {
     updateTotalPrice();
 }
 
-// Fonction pour afficher la liste des catégories
+// Afficher la liste des catégories
 function renderCategories() {
     const categoriesList = document.getElementById('categories-list');
     categoriesList.innerHTML = '';
@@ -94,23 +99,23 @@ function renderCategories() {
                 <input type="hidden" name="categories[${category.id}][price]" value="${category.price}">
                 <input type="hidden" name="categories[${category.id}][contact_id]" value="${escapeHtml(category.contactId)}">
             </div>
-            <div class="category-remove" onclick="removeCategory(${category.id})">
+            <a type="" class="category-remove button-icon">
                 <i class="fas fa-times"></i>
-            </div>
+            </a>
         `;
 
         categoriesList.appendChild(categoryElement);
     });
 }
 
-// Fonction pour mettre à jour le prix total
+// Mettre à jour le prix total
 function updateTotalPrice() {
     const totalPriceInput = document.getElementById('add-budget-price');
     const totalPrice = categories.reduce((sum, category) => sum + category.price, 0);
     totalPriceInput.value = totalPrice.toFixed(2);
 }
 
-// Fonction pour échapper les caractères HTML (sécurité)
+// Echapper les caractères HTML (sécurité)
 function escapeHtml(text) {
     if (text === null || text === undefined) {
         return '';
@@ -120,7 +125,7 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// Fonction pour charger les catégories existantes (pour l'édition de budget)
+// Charger les catégories existantes (pour l'édition de budget)
 function loadExistingCategories() {
     const categoriesData = document.getElementById('existing_categories_data');
     if (categoriesData && categoriesData.value) {
@@ -133,24 +138,17 @@ function loadExistingCategories() {
         }
     }
 }
-
-// Initialiser les écouteurs d'événements une fois que le DOM est chargé
-document.addEventListener('DOMContentLoaded', function () {
-    const buttonHidden = document.getElementById('button-hidden');
-    const items = document.getElementsByClassName('item');
-
-    buttonHidden.addEventListener('click', () => {
-        Array.from(items).forEach(element => {
-            element.classList.toggle('hidden');
-        });
+document.addEventListener('DOMContentLoaded', () => {
+   // Supprimer la catégoryie
+    categories.forEach(category => {      categoryRemove.addEventListener('click', removeCategory(category.id));
     });
-
-
-    document.getElementById('add-category-btn').addEventListener('click', addCategory);
+    // Ajouter la catégorie séléctionner
+    btnCategory.addEventListener('click', addCategory);
 
     // Initialiser l'affichage des catégories
     renderCategories();
 
     // Charger les catégories existantes si on est en mode édition
-    loadExistingCategories()
-})
+    loadExistingCategories();
+
+});

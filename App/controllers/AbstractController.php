@@ -2,8 +2,7 @@
 
 abstract class AbstractController
 {
-
-    public function __construct() {}
+    protected function __construct() {}
 
     protected function render(string $template, array $data): void
     {

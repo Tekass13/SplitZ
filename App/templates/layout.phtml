@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,9 +13,10 @@
     <link rel="stylesheet" href="assets/styles/css/style.css">
     <title>SplitZ</title>
 </head>
-<body>   
+
+<body>
     <?php
-    if(isset($_SESSION['username'])) {
+    if (isset($_SESSION['username'])) {
         require "templates/header.phtml";
         require "templates/$template.phtml";
         require "templates/footer.phtml";
@@ -24,6 +26,7 @@
         require "templates/footer-void.phtml";
     }
     ?>
-    <script src="assets/js/scripts.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
 </body>
+
 </html>

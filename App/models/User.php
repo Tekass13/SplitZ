@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author : Gaellan
  * @link : https://github.com/Gaellan
@@ -8,7 +9,13 @@ class User
 {
     private ?int $id = null;
 
-    public function __construct(private ?string $username = "", private ?string $email = "", private ?string $password = "", private ?string $role = "USER") {}
+    public function __construct(private ?string $username = "", private ?string $email = "", private ?string $password = "", private ?string $role = "USER")
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->role = $role;
+    }
 
     public function getId(): ?int
     {
@@ -63,15 +70,5 @@ class User
     {
         $this->role = $role;
         return;
-    }
-
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 }

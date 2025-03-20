@@ -6,6 +6,7 @@ class Router extends AbstractController
     private ContactController $cc;
     private BudgetController $bc;
     private MessageController $mc;
+    private SearchController $sc;
 
     public function __construct()
     {
@@ -13,45 +14,57 @@ class Router extends AbstractController
         $this->cc = new ContactController();
         $this->bc = new BudgetController();
         $this->mc = new MessageController();
+        $this->sc = new SearchController();
     }
-    
+
     public function handleRequest(array $get): void
     {
-        $routes = [
-            "login" => fn() => $this->ac->login(),
-            "check-login" => fn() => $this->ac->checkLogin(),
-            "register" => fn() => $this->ac->register(),
-            "check-register" => fn() => $this->ac->checkRegister(),
-            "reset-password" => fn() => $this->ac->resetPassword(),
-            "check-reset-password" => fn() => $this->ac->checkResetPassword(),
-            "logout" => fn() => $this->ac->logout(),
-            "home" => fn() => $this->render("home", []),
-            "budgets" => fn() => $this->bc->listBudgets(),
-            "add-budget" => fn() => $this->bc->addBudget(),
-            "save-budget" => fn() => $this->bc->saveBudget(),
-            "edit-budget" => fn() => $this->bc->editBudget(),
-            "update-budget" => fn() => $this->bc->updateBudget(),
-            "delete-budget" => fn() => $this->bc->deleteBudget(),
-            "list-contact" => fn() => $this->cc->showContacts(),
-            "select-participant" => fn() => $this->cc->showContacts(),
-            "add-participant" => fn() => $this->bc->addParticipant(),
-            "delete-participant" => fn() => $this->bc->deleteParticipant(),
-            "update-categorie-price" => fn() => $this->bc->updateCategoriePrice(),
-            "search-contact" => fn() => $this->cc->searchUser(),
-            "add-contact" => fn() => $this->cc->addContact(),
-            "delete-contact" => fn() => $this->cc->deleteContact(),
-            "inbox" => fn() => $this->mc->inbox(),
-            "view-message" => fn() => $this->mc->viewMessage(),
-            "reply_to" => fn() => $this->mc->getMessage(),
-            "compose-message" => fn() => $this->mc->composeMessage(),
-            "delete-message" => fn() => $this->mc->deleteMessage(),
-            "send-message" => fn() => $this->mc->sendMessage()
-        ];
-        
         $route = $get["route"] ?? "login";
-        
-        if (array_key_exists($route, $routes)) {
-            $routes[$route]();
+
+        if ($route === "login") {
+            $this->ac->login();
+        } elseif ($route === "check-login") {
+            $this->ac->checkLogin();
+        } elseif ($route === "register") {
+            $this->ac->register();
+        } elseif ($route === "check-register") {
+            $this->ac->checkRegister();
+        } elseif ($route === "reset-password") {
+            $this->ac->resetPassword();
+        } elseif ($route === "check-reset-password") {
+            $this->ac->checkResetPassword();
+        } elseif ($route === "logout") {
+            $this->ac->logout();
+        } elseif ($route === "home") {
+            $this->render("home", []);
+        } elseif ($route === "search-user") {
+            $this->sc->searchUser();
+        } elseif ($route === "search-contact") {
+            $this->sc->searchContact();
+        } elseif ($route === "list-contact") {
+            $this->cc->showContacts();
+        } elseif ($route === "add-contact") {
+            $this->cc->addContact();
+        } elseif ($route === "delete-contact") {
+            $this->cc->deleteContact();
+        } elseif ($route === "inbox") {
+            $this->mc->inbox();
+        } elseif ($route === "view-message") {
+            $this->mc->viewMessage();
+        } elseif ($route === "compose-message") {
+            $this->mc->composeMessage();
+        } elseif ($route === "delete-message") {
+            $this->mc->deleteMessage();
+        } elseif ($route === "send-message") {
+            $this->mc->sendMessage();
+        } elseif ($route === "budgets") {
+            $this->bc->listBudgets();
+        } elseif ($route === "add-budget") {
+            $this->bc->addBudget();
+        } elseif ($route === "save-budget") {
+            $this->bc->saveBudget();
+        } elseif ($route === "delete-budget") {
+            $this->bc->deleteBudget();
         } else {
             http_response_code(404);
             echo "404 - Page Not Found";

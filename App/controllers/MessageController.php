@@ -2,87 +2,81 @@
 
 class MessageController extends AbstractController
 {
+    private UserManager $um;
+    private CSRFTokenManager $csrfm;
+    private MessageManager $mm;
+
     public function __construct()
     {
-        parent::__construct();
-        // Vérifier si l'utilisateur est connecté
+        $this->um = new UserManager();
+        $this->csrfm = new CSRFTokenManager();
+        $this->mm = new MessageManager();
+
         if (!isset($_SESSION['user'])) {
             return;
         }
     }
-    
-    // Afficher la boîte de réception
+
     public function inbox(): void
     {
         $userId = $_SESSION['user'];
-        $messageManager = new MessageManager();
-        $messages = $messageManager->getInboxMessages($userId);
-        $unreadCount = $messageManager->countUnreadMessages($userId);
-        
-        $CSRFTokenManager = new CSRFTokenManager();
+        $messages = $this->mm->getInboxMessages($userId);
+        $unreadCount = $this->mm->countUnreadMessages($userId);
+
         if (empty($_SESSION['csrf_token'])) {
-            $csrfToken = $CSRFTokenManager->generateCSRFToken();
+            $csrfToken = $this->csrfm->generateCSRFToken();
             $_SESSION['csrf_token'] = $csrfToken;
         } else {
             $csrfToken = $_SESSION['csrf_token'];
         }
-        
+
         $this->render("inbox", [
-            'messages' => $messages, 
+            'messages' => $messages,
             'unreadCount' => $unreadCount,
             'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
-    
-    // Afficher un message
+
     public function viewMessage(): void
     {
         if (!isset($_GET['id'])) {
             $this->redirect("index.php?route=inbox");
             return;
         }
-        
+
         $messageId = (int)$_GET['id'];
         $userId = $_SESSION['user'];
-        $messageManager = new MessageManager();
-        $message = $messageManager->getMessage($messageId);
-        
-        // Vérifier que le message existe et appartient à l'utilisateur connecté
+        $message = $this->mm->getMessage($messageId);
+
         if (!$message || $message->getRecipientId() !== $userId) {
             $this->redirect("index.php?route=inbox");
             return;
         }
-        
-        // Marquer le message comme lu
-        $messageManager->markAsRead($messageId);
-        
-        $userManager = new UserManager();
-        $sender = $userManager->findById($message->getSenderId());
-        
-        $CSRFTokenManager = new CSRFTokenManager();
+
+        $this->mm->markAsRead($messageId);
+
+        $sender = $this->um->findById($message->getSenderId());
+
         if (empty($_SESSION['csrf_token'])) {
-            $csrfToken = $CSRFTokenManager->generateCSRFToken();
+            $csrfToken = $this->csrfm->generateCSRFToken();
             $_SESSION['csrf_token'] = $csrfToken;
         } else {
             $csrfToken = $_SESSION['csrf_token'];
         }
-        
+
         $this->render("view-message", [
             'message' => $message,
             'sender' => $sender,
             'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
-    
-    // Rediger un message ou une réponse
+
     public function composeMessage(): void
     {
-        $userManager = new UserManager();
-        $users = $userManager->getAllUsers();
+        $users = $this->um->getAllUsers();
 
-        $CSRFTokenManager = new CSRFTokenManager();
         if (empty($_SESSION['csrf_token'])) {
-            $csrfToken = $CSRFTokenManager->generateCSRFToken();
+            $csrfToken = $this->csrfm->generateCSRFToken();
             $_SESSION['csrf_token'] = $csrfToken;
         } else {
             $csrfToken = $_SESSION['csrf_token'];
@@ -90,85 +84,75 @@ class MessageController extends AbstractController
 
         if (isset($_GET['reply_to'])) {
             $messageId = (int)$_GET['reply_to'];
-            $messageManager = new MessageManager();
-            $message = $messageManager->getMessage($messageId);
-            $this->render("compose-message", ['message' => $message]);
+            $message = $this->mm->getMessage($messageId);
+            $this->render("compose-message", [
+                'message' => $message,
+                'users' => $users,
+                'csrf_token' => $_SESSION['csrf_token']
+            ]);
         } else {
             $this->render("compose-message", [
                 'users' => $users,
                 'csrf_token' => $_SESSION['csrf_token'],
             ]);
         }
-        
     }
-    
-    // Envoyer un message
+
     public function sendMessage(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect("index.php?route=compose-message");
             return;
         }
-        
-        // Vérification du token CSRF
-        $CSRFTokenManager = new CSRFTokenManager();
+
         $token = $_POST['csrf_token'] ?? '';
-        if (!$CSRFTokenManager->validateCSRFToken($token)) {
+        if (!$this->csrfm->validateCSRFToken($token)) {
             die("Erreur CSRF.");
         }
-        
-        // Récupération des données du formulaire
+
         $recipientId = (int)($_POST['recipient_id'] ?? 0);
         $subject = htmlspecialchars($_POST['subject'] ?? '');
         $content = htmlspecialchars($_POST['content'] ?? '');
         $senderId = $_SESSION['user'];
-        
-        // Validation des données
+
         if ($recipientId === 0 || empty($subject) || empty($content)) {
             $this->redirect("index.php?route=compose-message&error=empty_fields");
             return;
         }
-        
-        // Création et envoi du message
+
         $message = new Message($senderId, $recipientId, $subject, $content);
-        $messageManager = new MessageManager();
-        $result = $messageManager->createMessage($message);
-        
+        $result = $this->mm->createMessage($message);
+
         if ($result) {
             $this->redirect("index.php?route=inbox&success=message_sent");
         } else {
             $this->redirect("index.php?route=compose-message&error=send_failed");
         }
     }
-    
-    // Supprimer un message
+
     public function deleteMessage(): void
     {
         if (!isset($_GET['id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect("index.php?route=inbox");
             return;
         }
-        
-        // Vérification du token CSRF
-        $CSRFTokenManager = new CSRFTokenManager();
+
         $token = $_POST['csrf_token'] ?? '';
-        if (!$CSRFTokenManager->validateCSRFToken($token)) {
+        if (!$this->csrfm->validateCSRFToken($token)) {
             die("Erreur CSRF.");
         }
-        
+
         $messageId = (int)$_GET['id'];
         $userId = $_SESSION['user'];
-        $messageManager = new MessageManager();
-        $message = $messageManager->getMessage($messageId);
-        
-        // Vérifier que le message existe et appartient à l'utilisateur connecté
+        $message = $this->mm->getMessage($messageId);
+
         if (!$message || $message->getRecipientId() !== $userId) {
             $this->redirect("index.php?route=inbox");
             return;
         }
-        
-        $result = $messageManager->deleteMessage($messageId);
-        
+
+        $result = $this->mm->deleteMessage($messageId);
+
         if ($result) {
             $this->redirect("index.php?route=inbox&success=message_deleted");
         } else {

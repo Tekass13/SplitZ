@@ -1,13 +1,13 @@
 <section>
     <h1>Message</h1>
-    
+
     <div class="message-header">
         <div class="message-meta">
             <p>De: <?= htmlspecialchars($sender->getUserName()) ?></p>
             <p>Date: <?= (new DateTime($message->getCreatedAt()))->format('d/m/Y H:i') ?></p>
             <p>Sujet: <?= htmlspecialchars($message->getSubject()) ?></p>
         </div>
-            
+
         <div class="message-content">
             <?= nl2br(htmlspecialchars($message->getContent())) ?>
         </div>

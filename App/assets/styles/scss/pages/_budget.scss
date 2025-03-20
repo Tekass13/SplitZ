@@ -1,88 +1,23 @@
-.budget-card * {
-    margin: 0;
-}
-
-.budget-total {
-    padding: 1em;
-    border-radius: .5em;
-}
-
-.info-text {
-    font-size: 0.8em;
-    color: #6c757d;
-    margin: 0.25em;
-}
-
-.categories-container {
-    margin: 2em;
-}
-
-.category-item {
-    display: flex;
-    align-items: center;
-    padding: 1em;
-    border-radius: .5em;
-}
-
-.category-icon {
+.budgets-list,
+.budget-title,
+.budget-total,
+.budget-category,
+.category-card,
+.category-type,
+.category-name,
+.category-price,
+.category-contact {
+    @include flex-column;
     text-align: center;
-    font-size: 2em;
-    margin-bottom: 1em;
-    height: auto;
-}
-
-.category-icon i {
-    color: $primary;
+    margin: auto;
     padding: .5em;
 }
 
-select {
-    border:none;
-    background-color: $dark;
-    color: $primary;
+.budgets-list,
+.budget-category {
+    width: 100%;
 }
 
-.category-details {
-    @include flex-spacing;
-    flex-wrap: wrap;
-    flex-grow: 1;
-}
-
-.category-contact {
-    padding-left: 1em;
-}
-
-.category-header p {
-    @include flex-spacing;
-    margin: 0;
-}
-
-.category-name,
-.category-price {
-    font-weight: bold;
-}
-
-.category-contact {
-    color: $light;
-}
-
-.category-remove {
-    cursor: pointer;
-    color: #dc3545;
-    margin: 1em;
-}
-
-.add-category-form {
-    padding: 1em;
-    border-radius: 5px;
-    margin-top: 1em;
-}
-
-.add-category-form > div {
-    margin-bottom: 1em;
-}
-
-.budget-actions,
-.budget-actions a {
-    padding: 1em;
+.categories-grid p {
+    text-align: center;
 }

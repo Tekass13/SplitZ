@@ -1,0 +1,8 @@
+.button {
+    @include flex-align;
+    gap: .2em;
+}
+
+.text-icon {
+    margin: 0;
+}

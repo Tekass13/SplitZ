@@ -32,7 +32,7 @@
     & .nav-bar {
         width: 100%;
         padding: 1em 0;
-        & .container-buttons {
+        & .container-menu {
             @include flex-nav;
             padding-top: 2em;
             padding-left: 0;
@@ -88,9 +88,13 @@
 
             & .item,
             & .item a {
-                background-color: $hover;
+                background-color: $dark;
                 color:$primary;
                 padding: .2em;
+            }
+
+            & .item a:hover {
+                background-color: $hover;
             }
 
             & .icon-profil {
@@ -103,7 +107,7 @@
                 background-color: transparent;
                 &:hover,
                 .icon-profil:hover {
-                    background-color: $hover;
+                    background-color: $dark;
                     color:$primary;
                     transition: all .25 ease-in;
                 }

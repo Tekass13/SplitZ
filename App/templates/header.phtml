@@ -4,14 +4,14 @@
             <img class="icon" src="assets/img/logo.png" alt="logo de l'application SplitZ représentant un portefeuille et des pièces sur un fond vert pale">
         </a>
         <p id="title">SplitZ</p>
-        <ul class="container-buttons">
-            <li class="nav-button">
+        <ul class="container-menu">
+            <li>
                 <a href="index.php?route=home">Accueil</a>
             </li>
-            <li class="nav-button">
+            <li>
                 <a href="index.php?route=budgets">Budgets</a>
             </li>
-            <li class="nav-button">
+            <li>
                 <a href="index.php?route=list-contact">Contacts</a>
             </li>
         </ul>
@@ -28,7 +28,7 @@
                     <li class="hidden item">
                         <a href="index.php?route=inbox">
                             Boite de récéption
-                            <?php 
+                            <?php
                             if (isset($_SESSION['user'])) {
                                 $messageManager = new MessageManager();
                                 $unreadCount = $messageManager->countUnreadMessages($_SESSION['user']);

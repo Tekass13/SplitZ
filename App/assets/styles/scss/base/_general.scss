@@ -12,7 +12,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 16px;
     background-color: $dark;
     color: $light;
     width: 100%;
@@ -27,12 +27,27 @@ h2,
 h3 {
     @include flex-align;
     width: 100%;
-    margin: 0;
+    margin: auto;
     text-transform: uppercase;
 }
 
 h2 {
     color: $primary;
+}
+
+section {
+    @include flex-column;
+    width: 70%;
+    height: auto;
+    margin: auto;
+    border: 1px solid $light;
+}
+
+select {
+    border:none;
+    background-color: $dark;
+    color:$primary;
+    padding: .2em;  
 }
 
 a {

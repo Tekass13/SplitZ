@@ -1,23 +1,4 @@
 .container-align {
     @include flex-align;
     width: 100%;
-    & #search-bar {
-        width: 35vh;
-        margin: 4vh;
-        text-align: center;
-        border-radius: 1em;
-    }
-}
-
-.username {
-    @include flex-align;
-    font-size: $h1;
-}
-
-section {
-    @include flex-column;
-    width: 70%;
-    height: auto;
-    margin: auto;
-    border: 1px solid $light;
 }

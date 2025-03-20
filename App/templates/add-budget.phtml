@@ -1,64 +1,70 @@
 <h1>Ajouter un budget</h1>
 <section>
-<form class="form-container" method="POST" action="index.php?route=save-budget">
-        <label for="add-budget-title">Titre du budget</label>
-        <input type="text" name="add-budget-title" id="add-budget-title" value="" required>
-        
-        <div class="budget-total">
-            <label for="add-budget-price">Prix total du budget</label>
-            <input type="text" name="add-budget-price" id="add-budget-price" value="0.00" readonly>
-            <p class="info-text">(Calculé automatiquement)</p>
+    <form class="form-container" method="POST" action="index.php?route=save-budget">
+        <div class="budget-header">
+            <div class="budget-title">
+                <label for="add-budget-title">Titre du budget</label>
+                <input type="text" name="add-budget-title" id="add-budget-title" value="" required>
+            </div>
+            <div class="budget-total">
+                <label for="add-budget-price">Prix total du budget</label>
+                <input type="text" name="add-budget-price" id="add-budget-price" value="0.00" readonly>
+                <p class="info-text">(Calculé automatiquement)</p>
+            </div>
         </div>
-        
-        <div class="categories-container">
-            <h2>Catégories</h2>
-            <div id="categories-list">
+
+        <div class="budget-categories">
+            <h3>Catégories</h3>
+            <div id="categories-list" class="categories-grid">
                 <!-- Les catégories ajoutées seront affichées ici -->
             </div>
-            
-            <div class="add-category-form">
-                <h3>Ajouter une catégorie</h3>
-                <div class="category-selection">
-                    <select id="category-type">
-                        <option value="">Sélectionnez une catégorie</option>
-                        <option value="food" data-icon="fa-utensils">Alimentation</option>
-                        <option value="transport" data-icon="fa-car">Transport</option>
-                        <option value="housing" data-icon="fa-home">Logement</option>
-                        <option value="entertainment" data-icon="fa-film">Divertissement</option>
-                        <option value="shopping" data-icon="fa-shopping-cart">Shopping</option>
-                        <option value="health" data-icon="fa-medkit">Santé</option>
-                        <option value="travel" data-icon="fa-plane">Voyage</option>
-                        <option value="education" data-icon="fa-graduation-cap">Éducation</option>
-                    </select>
-                </div>
-                
+        </div>
+        <div class="budget-actions">
+            <button class="button" type="submit">Valider le budget</button>
+        </div>
+    </form>
+    <form class="add-category-form" method="POST" action="">
+        <h3>Ajouter une catégorie</h3>
+        <div class="category-card">
+            <div class="category-selection">
+                <select id="category-type">
+                    <option value="">Sélectionnez une catégorie</option>
+                    <option value="food" data-icon="fa-utensils">Alimentation</option>
+                    <option value="transport" data-icon="fa-car">Transport</option>
+                    <option value="housing" data-icon="fa-home">Logement</option>
+                    <option value="entertainment" data-icon="fa-film">Divertissement</option>
+                    <option value="shopping" data-icon="fa-shopping-cart">Shopping</option>
+                    <option value="health" data-icon="fa-medkit">Santé</option>
+                    <option value="travel" data-icon="fa-plane">Voyage</option>
+                    <option value="education" data-icon="fa-graduation-cap">Éducation</option>
+                </select>
+            </div>
+
+            <div class="category-info">
                 <div class="category-name">
                     <label for="category-name">Nom de la catégorie</label>
                     <input type="text" id="category-name">
                 </div>
-                
+
                 <div class="category-price">
                     <label for="category-price">Prix</label>
                     <input type="number" id="category-price" step="0.01" min="0">
                 </div>
-                
-                <div class="category-contact">
-                    <label for="category-contact">Contact assigné</label>
-                    <select id="category-contact">
-                        <option value="">Sélectionnez un contact</option>
-                        <!-- Ces options seraient idéalement générées dynamiquement à partir de la liste de contacts -->
-                        <?php if (!empty($contacts)) : ?>
-                            <?php foreach ($contacts as $contact) : ?>
-                                <option value="<?= $contact['id'] ?>"><?= htmlspecialchars($contact['username'], ENT_QUOTES, 'UTF-8') ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                </div>
-                <input type="hidden" name="categories_data" id="categories_data" value="[]">
-                <button type="button" id="add-category-btn" class="button">Ajouter cette catégorie</button>
             </div>
+
+            <div class="category-contact">
+                <label for="category-contact">Contact assigné</label>
+                <select id="category-contact">
+                    <option value="">Sélectionnez un contact</option>
+                    <?php if (!empty($contacts)) : ?>
+                        <?php foreach ($contacts as $contact) : ?>
+                            <option value="<?= $contact['id'] ?>"><?= htmlspecialchars($contact['username'], ENT_QUOTES, 'UTF-8') ?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <input type="hidden" name="categories_data" id="categories_data" value="[]">
+            <button type="button" id="add-category-btn" class="button-icon">Ajouter cette catégorie</button>
         </div>
-        
-        <button class="button" type="submit">Valider le budget</button>
     </form>
 </section>

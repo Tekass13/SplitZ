@@ -3,20 +3,21 @@
 @import 'abstracts/variables.scss';
 
 /* base */
-@import 'base/normalize.scss';
+@import 'base/general.scss';
 
 /* components */
 @import 'components/table.scss';
 @import 'components/buttons.scss';
+@import 'components/search-bar.scss';
 
 /* layout */
 @import 'layout/header.scss';
 @import 'layout/footer.scss';
 
 /* pages */
-@import 'pages/budget.scss';
 @import 'pages/home.scss';
-@import 'pages/message.scss';
+@import 'pages/contact-list.scss';
+@import 'pages/budget.scss';
 
 /* responsive */
 @import 'responsive/media-query.scss';
