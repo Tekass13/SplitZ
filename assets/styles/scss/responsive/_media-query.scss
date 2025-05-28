@@ -1,0 +1,67 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixin' as *;
+
+@media screen and (min-width: 600px) {
+
+    // Règles pour header.phtml
+    #header {
+        border-end-end-radius: 0;
+        border-end-start-radius: 0;
+
+        #menu-btn {
+            display: none;
+        }
+
+        #main-menu {
+            @include flex-nav();
+            box-shadow: none;
+            border-end-end-radius: 1vw;
+            border-end-start-radius: 1vw;
+
+            li {
+                display: inline-block;
+                height: 100%;
+            }
+        }
+    }
+
+    .menu-overlay {
+        display: none;
+    }
+
+    // Règles pour budget.phtml
+    .participants-label {
+        text-align: center;
+    }
+
+    .category-participants {
+        .participants-table.desktop-only {
+            display: table;
+            width: 100%;
+        }
+
+        .participants-cards.mobile-only {
+            display: none;
+        }
+    }
+
+    // Règles pour inbox.phtml
+    .messages-list {
+        table.desktop-only {
+            display: table;
+            width: 100%;
+        }
+
+        .message-cards.mobile-only {
+            display: none;
+        }
+    }
+
+    .inbox-actions,
+    .inbox-summary,
+    .messages-list {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

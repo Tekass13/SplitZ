@@ -1,0 +1,24 @@
+<section>
+    <h1>Message</h1>
+
+    <div class="message-header">
+        <div class="message-meta">
+            <p>De: <?= htmlspecialchars($sender->getUserName()) ?></p>
+            <p>Date: <?= (new DateTime($message->getCreatedAt()))->format('d/m/Y H:i') ?></p>
+            <p>Sujet: <?= htmlspecialchars($message->getSubject()) ?></p>
+        </div>
+
+        <div class="message-content">
+            <?= nl2br($message->getContent()) ?>
+        </div>
+
+        <div class="message-actions">
+            <form action="index.php?route=delete-message&id=<?= $message->getId() ?>" method="post" class="delete-form">
+                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                <button type="submit" class="button">Supprimer</button>
+            </form>
+            <a href="index.php?route=compose-message&reply_to=<?= $message->getId() ?>" class="btn btn-primary">Répondre</a>
+            <a href="index.php?route=inbox" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
+</section>

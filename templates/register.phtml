@@ -1,0 +1,25 @@
+<section>
+    <form action="index.php?route=check-register" method="POST">
+        <?php if ($_SESSION['csrf_token']) { ?>
+            <input type="hidden" id="csrf_token" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+        <?php } ?>
+        <h1>Inscription</h1>
+        <label for="username">Identifiant :</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm-password">Confirmer mot de passe :</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+
+        <p class="form-text">
+            Vous avez déjà un <a href="index.php?route=login">Compte</a>?
+        </p>
+
+        <button class="button" type="submit">S'enregistrer</button>
+    </form>
+</section>

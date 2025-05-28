@@ -1,0 +1,19 @@
+@use '../abstracts/mixin' as mixin;
+
+.form-contact {
+    margin: 0;
+    padding: 0;
+
+    & .close-button {
+        margin: 0;
+    }
+}
+
+.button {
+    @include mixin.flex-align;
+    gap: .2em;
+}
+
+.text-icon {
+    margin: 0;
+}

@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixin' as *;
+
+section {
+    form {
+        .profil-title {
+            color: $primary;
+            padding: .2em;
+            margin: 0;
+        }
+
+        .instructions {
+            font-style: italic;
+            color: $yellowLight;
+        }
+
+        p {
+            padding: .2em;
+        }
+
+        .item-label {
+            font-size: $h2;
+            font-weight: bold
+        }
+
+        .value-container {
+            display: inline-flex;
+            text-align: left;
+            color: $primary;
+        }
+
+        .raw-input {
+            border: none;
+            background-color: transparent;
+            min-width: 100%;
+        }
+    }
+}

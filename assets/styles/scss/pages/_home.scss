@@ -1,0 +1,151 @@
+@use '../abstracts/mixin' as *;
+@use '../abstracts/variables' as *;
+
+h1 {
+    margin-bottom: 1em;
+}
+
+.inbox-actions,
+.inbox-summary {
+    @include flex-align(center, flex-start, row);
+    margin-bottom: 1em;
+}
+
+.inbox-summary {
+
+    p {
+        @include flex-align(center, center, row);
+        gap: .5em;
+    }
+
+    .badge {
+        background-color: $primary;
+        color: $dark;
+        border-radius: 50%;
+        width: 1em;
+        height: 1em;
+        @include flex-align(center, center, row);
+    }
+}
+
+.messages-list {
+    width: 100%;
+
+    table {
+        display: none;
+
+        th,
+        td {
+            text-align: left;
+            padding: .75em;
+        }
+
+        tr.unread {
+            background-color: rgba($primary, .1);
+            font-weight: bold;
+        }
+    }
+
+    .message-cards {
+        &.mobile-only {
+            @include flex-align(center, center, column);
+            gap: 1em;
+            width: 100%;
+        }
+    }
+}
+
+.message-card {
+    border: 1px solid $light;
+    border-radius: .5em;
+    padding: 1em;
+    width: 100%;
+    background-color: $grey;
+
+    &.unread {
+        border-left: 5px solid $primary;
+        background-color: $grey;
+    }
+
+    .message-header {
+        @include flex-nav;
+        margin-bottom: .5em;
+
+        .status-indicator {
+            padding: 0 .5em;
+            border-radius: 1em;
+            text-align: center;
+
+            &.unread {
+                background-color: $yellowPastel;
+                color: $yellow;
+            }
+
+            &.read {
+                background-color: $greenPastel;
+                color: $green;
+            }
+        }
+    }
+
+    .message-details {
+        @include flex-align(center, flex-start, column);
+        gap: .5em;
+
+        .detail-row {
+            @include flex-nav;
+            width: 100%;
+
+            .detail-label {
+                color: $light;
+                width: 30%;
+            }
+
+            .detail-value {
+                font-weight: bold;
+                color: $greenPastel;
+                width: 70%;
+
+                a {
+                    color: $primary;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .message-actions {
+        @include flex-align(center, flex-end, row);
+        margin-top: 1em;
+
+        .delete-form {
+            margin: 0;
+        }
+    }
+}
+
+.empty-inbox {
+    text-align: center;
+    color: $greyLight;
+    padding: 2em;
+}
+
+.alert {
+    padding: .3em;
+    border-radius: 2em;
+    margin-bottom: 1em;
+
+    &.alert-success {
+        background-color: $greenPastel;
+        color: $green;
+    }
+
+    &.alert-danger {
+        background-color: rgba($alert, .2);
+        color: $alert;
+    }
+}

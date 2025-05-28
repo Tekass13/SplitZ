@@ -1,0 +1,27 @@
+<section>
+    <h1>Mes participations aux budgets</h1>
+
+    <?php
+    $participationController = new ParticipationController();
+    $participationController->displayAlerts();
+    ?>
+
+    <div class="participations-list">
+        <?php if (empty($participations)) { ?>
+            <p class="empty-participations">Vous n'avez aucune participation à des budgets.</p>
+        <?php } else {
+            $participationController->renderTable($participations, 'invitation', 'En attente', 'Participations en attente', true);
+            $participationController->renderTable($participations, 'invitation', 'Confirmé', 'Participations confirmées');
+        ?>
+    </div>
+
+    <?php $participationController->displayPaymentAlerts(); ?>
+
+    <div class="confirmations-list">
+    <?php
+            $participationController->renderTable($participations, 'payment', 'En attente', 'Paiements en attente', true);
+            $participationController->renderTable($participations, 'payment', 'Confirmé', 'Paiements confirmés');
+        }
+    ?>
+    </div>
+</section>

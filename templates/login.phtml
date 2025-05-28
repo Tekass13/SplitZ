@@ -1,0 +1,23 @@
+<section>
+    <form action="index.php?route=check-login" method="POST">
+        <?php if ($_SESSION['csrf_token']) { ?>
+            <input type="hidden" id="csrf_token" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+        <?php } ?>
+        <h1>Connexion</h1>
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required>
+
+        <p class="form-text">
+            Vous n'avez pas encore de <a href="index.php?route=register">Compte</a>?
+        </p>
+
+        <p class="form-text">
+            <a href="index.php?route=reset-password">Mot de passe oublié?</a>
+        </p>
+
+        <button class="button" type="submit">Se connecter</button>
+    </form>
+</section>

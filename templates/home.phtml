@@ -1,0 +1,114 @@
+<form method="POST" action="index.php?route=search-user">
+    <div class="search-container">
+        <input type="text" id="search-bar" name="search-bar" class="search-bar">
+        <button class="button-icon search-button" type="submit" id="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
+<section>
+    <h1>Boîte de réception</h1>
+
+    <?php if (isset($_GET['success']) && $_GET['success'] === 'message_sent') { ?>
+        <p class="alert alert-success">Message envoyé avec succès!</p>
+    <?php }; ?>
+
+    <?php if (isset($_GET['success']) && $_GET['success'] === 'message_deleted') { ?>
+        <p class="alert alert-success">Message supprimé avec succès!</p>
+    <?php }; ?>
+
+    <?php if (isset($_GET['error'])) { ?>
+        <p class="alert alert-danger">Une erreur s'est produite.</p>
+    <?php }; ?>
+
+    <div class="inbox-actions">
+        <a href="index.php?route=compose-message" class="btn btn-primary">Nouveau message</a>
+    </div>
+
+    <div class="inbox-summary">
+        <p>Messages non lus: <span class="badge"><?= $unreadCount ?></span>
+        </p>
+    </div>
+
+    <div class="messages-list">
+        <?php if (empty($messages)) { ?>
+            <p class="empty-inbox">Aucun message dans votre boîte de réception.</p>
+        <?php } else { ?>
+            <table class="desktop-only">
+                <thead>
+                    <tr>
+                        <th>État</th>
+                        <th>Expéditeur</th>
+                        <th>Sujet</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($messages as $message) { ?>
+                        <tr class="<?= $message->isRead() ? '' : 'unread' ?>">
+                            <td>
+                                <?php if (!$message->isRead()) { ?>
+                                    <p class="status-indicator unread">Non lu</p>
+                                <?php } else { ?>
+                                    <p class="status-indicator read">Lu</p>
+                                <?php }; ?>
+                            </td>
+                            <td><?= htmlspecialchars($message->getSenderName()) ?></td>
+                            <td>
+                                <a href="index.php?route=view-message&id=<?= $message->getId() ?>">
+                                    <?= htmlspecialchars($message->getSubject()) ?>
+                                </a>
+                            </td>
+                            <td><?= (new DateTime($message->getCreatedAt()))->format('d/m/Y H:i') ?></td>
+                            <td>
+                                <form action="index.php?route=delete-message&id=<?= $message->getId() ?>" method="post" class="delete-form">
+                                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                                    <button type="submit" class="delete-action button-icon"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php }; ?>
+                </tbody>
+            </table>
+
+            <div class="message-cards mobile-only">
+                <?php foreach ($messages as $message) { ?>
+                    <div class="message-card <?= $message->isRead() ? '' : 'unread' ?>">
+                        <div class="message-header">
+                            <?php if (!$message->isRead()) { ?>
+                                <p class="status-indicator unread">Non lu</p>
+                            <?php } else { ?>
+                                <p class="status-indicator read">Lu</p>
+                            <?php }; ?>
+                        </div>
+                        <div class="message-details">
+                            <div class="detail-row">
+                                <p class="detail-label">Expéditeur:</p>
+                                <p class="detail-value"><?= htmlspecialchars($message->getSenderName()) ?></p>
+                            </div>
+                            <div class="detail-row">
+                                <p class="detail-label">Sujet:</p>
+                                <p class="detail-value">
+                                    <a href="index.php?route=view-message&id=<?= $message->getId() ?>">
+                                        <?= htmlspecialchars($message->getSubject()) ?>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="detail-row">
+                                <p class="detail-label">Date:</p>
+                                <p class="detail-value"><?= (new DateTime($message->getCreatedAt()))->format('d/m/Y H:i') ?></p>
+                            </div>
+                        </div>
+                        <div class="message-actions">
+                            <form action="index.php?route=delete-message&id=<?= $message->getId() ?>" method="post" class="delete-form">
+                                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                                <button type="submit" class="delete-action button-icon"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                <?php }; ?>
+            </div>
+        <?php }; ?>
+    </div>
+</section>

@@ -1,0 +1,35 @@
+<section>
+    <form action="index.php?route=update-profil" method="POST">
+        <h1 class="profile-title">Informations Personnelles</h1>
+        <p class="instructions">Cliquez sur un champ pour modifier</p>
+        <div class="profile-content">
+        <?php if (isset($user)) { ?>
+            <div class="profile-item">
+                <p class="item-label">Identifiant</p>
+                <div class="value-container">
+                    <input class="raw-input username" name="username" type="text" value="<?= htmlspecialchars($user->getUserName(), ENT_QUOTES, 'UTF-8') ?>">
+                </div>
+            </div>
+            <div class="profile-item">
+                <p class="item-label">Mot de passe</p>
+                <div class="value-container">
+                    <input class="raw-input password-factice" name="password" type="password" value="********">
+                </div>
+            </div>
+            <div class="profile-item">
+                <p class="item-label">Email</p>
+                <div class="value-container">
+                    <input class="raw-input email" name="email" type="email" value="<?= htmlspecialchars($user->getEmail(), ENT_QUOTES, 'UTF-8') ?>">
+                </div>
+            </div>
+            <div class="profile-item">
+                <p class="item-label">Date de création du compte</p>
+                <div class="value-container">
+                    <p><?= htmlspecialchars($user->getCreatedAt(), ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+            </div>
+        <?php } ?>
+        </div>
+        <button type="submit" class="button">Valider</button>
+    </form>
+</section>

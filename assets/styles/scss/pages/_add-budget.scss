@@ -1,0 +1,35 @@
+@use '../abstracts/mixin' as *;
+@use '../abstracts/variables' as *;
+
+.add-category-form {
+    @include flex-align(center, center, column);
+    gap: 1em;
+    width: 100%;
+    margin-top: 1em;
+
+    h3 {
+        text-align: center;
+        margin: .5em;
+    }
+
+    label {
+        display: block;
+        margin-bottom: .25em;
+        font-weight: bold;
+    }
+
+    input,
+    select {
+        width: 100%;
+    }
+
+    .category-info {
+        @include flex-align(center, center, column);
+        margin-bottom: 1em;
+    }
+}
+
+input {
+    padding: 0;
+    padding-left: .5em;
+}

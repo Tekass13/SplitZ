@@ -1,0 +1,31 @@
+.conf-container {
+
+    h1,
+    h2 {
+        text-align: center;
+        padding: 1em 0;
+    }
+
+    .date {
+        text-align: center;
+        font-style: italic;
+        padding: 1em;
+    }
+}
+
+article {
+    width: 100%;
+    max-width: 800px;
+    padding: 1em;
+    text-align: left;
+
+    h3 {
+        text-align: left;
+        padding-top: 1em;
+        padding-bottom: .5em;
+    }
+
+    .text {
+        max-width: 800px;
+    }
+}

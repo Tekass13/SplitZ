@@ -1,0 +1,22 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixin' as *;
+
+section {
+    h1 {
+        color: $primary;
+    }
+
+    p {
+        padding: 0 .5em;
+    }
+
+    form {
+        label {
+            padding: 0 .5em;
+        }
+
+        .form-group {
+            @include flex-align(center, left, column);
+        }
+    }
+}

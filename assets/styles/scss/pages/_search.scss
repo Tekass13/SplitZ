@@ -1,0 +1,13 @@
+@use '../abstracts/mixin' as *;
+@use '../abstracts/variables' as *;
+
+.search-category-select,
+.search-container {
+    @include flex-align;
+    width: 100%;
+}
+
+.search-button,
+.search-bar {
+    margin: .5em;
+}

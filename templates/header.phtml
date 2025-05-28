@@ -1,0 +1,38 @@
+<header id="header">
+    <nav class="nav-bar">
+        <button id="menu-btn" class="button-icon menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <a href="index.php?route=home" class="logo-link">
+            <img class="icon" src="assets/img/logo.png" alt="logo de l'application SplitZ">
+        </a>
+
+        <p id="title">SplitZ</p>
+
+        <div id="menu-overlay" class="menu-overlay"></div>
+
+        <ul class="container-menu" id="main-menu">
+            <li><a href="index.php?route=home">Accueil</a></li>
+            <li><a href="index.php?route=budgets">Mes Budgets</a></li>
+            <li><a href="index.php?route=list-contact">Mes contacts</a></li>
+            <li><a href="index.php?route=participations">Mes participations</a></li>
+        </ul>
+
+        <?php if (isset($_SESSION['user'])) { ?>
+            <div class="container-profil">
+                <img class="icon" src="assets/img/defaut-profil.png" alt="Image de profil utilisateur">
+                <button id="btn-profil" class="icon-profil" href="#">
+                    <p><?= $_SESSION['username'] ?></p>
+                    <p class="unique-id"><?= ' #' . $_SESSION['unique_id'] ?></p>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <ul class="list-items" id="username">
+                    <li class="item hidden"><a href="index.php?route=profil">Profil</a></li>
+                    <li class="item hidden"><a href="index.php?route=logout">Deconnexion</a></li>
+                </ul>
+            </div>
+        <?php } ?>
+    </nav>
+    <button id="back-btn" class="back-btn">🡰 Retour</button>
+</header>

@@ -1,0 +1,40 @@
+@use '../abstracts/variables' as *;
+
+.button {
+    background-color: $primary;
+    white-space: nowrap;
+    color: $dark;
+    border: none;
+    border-radius: 2em;
+    margin: 1em auto;
+    min-width: 8em;
+    padding: .5em;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $grey;
+        color: $primary;
+        transition: all .25s ease-in;
+    }
+}
+
+.button-icon {
+    background-color: $dark;
+    color: $primary;
+    border: none;
+    border-radius: 2em;
+    margin: 2em auto;
+    padding: .5em;
+    margin: 0;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $grey;
+        color: $primary;
+        transition: all .25s ease-in;
+    }
+}
+
+.back-btn {
+    margin: 0 .5em;
+}

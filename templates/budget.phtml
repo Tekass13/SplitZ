@@ -1,0 +1,133 @@
+<h1>Mes Budgets</h1>
+<div class="budgets-list">
+    <?php if (empty($budgets)) { ?>
+        <p class="no-budgets">Vous n'avez pas encore de budgets.</p>
+    <?php } else { ?>
+        <?php
+        $userManager = new UserManager();
+        foreach ($budgets as $budget) {
+        ?>
+            <section class="budget-item">
+                <div class="budget-header">
+                    <h2><?= htmlspecialchars($budget->title, ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p class="budget-date"><?= htmlspecialchars($budget->created_at, ENT_QUOTES, 'UTF-8') ?></p>
+                    <p class="budget-creator">Créé par :</p>
+                    <p><?= htmlspecialchars($userManager->findById($budget->created_by)->getUserName(), ENT_QUOTES, 'UTF-8') ?></p>
+                    <div class="budget-total">
+                        <p class="total-amount">Total :</p>
+                        <p class="primary"><?= number_format($budget->price, 2, ',', ' ') ?> €</p>
+                    </div>
+                </div>
+
+                <?php if (!empty($budget->categories)) { ?>
+                    <div class="budget-categories">
+                        <h3>Détails des catégories</h3>
+                        <div class="categories-grid">
+                            <?php foreach ($budget->categories as $category) { ?>
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <div class="category-icon">
+                                            <i class="fa fa-<?= htmlspecialchars($category->type, ENT_QUOTES, 'UTF-8') ?>"></i>
+                                        </div>
+                                        <div class="category-info">
+                                            <p class="category-name"><?= htmlspecialchars($category->name, ENT_QUOTES, 'UTF-8') ?></p>
+                                            <p class="category-price"><?= number_format($category->price, 2, ',', ' ') ?> €</p>
+                                        </div>
+                                    </div>
+                                    <div class="category-participants">
+                                        <p class="participants-label">Participants :</p>
+                                        <?php if (!empty($category->participants)) { ?>
+                                            <table class="participants-table desktop-only">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Participant</th>
+                                                        <th>Montant</th>
+                                                        <th>Invitation</th>
+                                                        <th>Paiement</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($category->participants as $participant) { ?>
+                                                        <tr>
+                                                            <td>
+                                                                <p class="participant-name"><?= htmlspecialchars($participant->username, ENT_QUOTES, 'UTF-8') ?></p>
+                                                                <p class="unique-id"># <?= $participant->getUniqueId() ?></p>
+                                                            </td>
+                                                            <td>
+                                                                <p><?= number_format($participant->amount, 2, ',', ' ') ?> €</p>
+                                                            </td>
+                                                            <td>
+                                                                <?php if ($participant->getInvitation() === 'Confirmé') { ?>
+                                                                    <p class="status confirmed">Confirmé</p>
+                                                                <?php } else { ?>
+                                                                    <p class="status pending">En attente</p>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php if ($participant->getPayment() === 'Confirmé') { ?>
+                                                                    <p class="status confirmed">Confirmé</p>
+                                                                <?php } else { ?>
+                                                                    <p class="status pending">En attente</p>
+                                                                <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="participants-cards mobile-only">
+                                                <?php foreach ($category->participants as $participant) { ?>
+                                                    <div class="participant-card">
+                                                        <div class="participant-header">
+                                                            <p class="participant-name"><?= htmlspecialchars($participant->username, ENT_QUOTES, 'UTF-8') ?></p>
+                                                            <p class="unique-id">#<?= $participant->getUniqueId() ?></p>
+                                                        </div>
+                                                        <div class="participant-details">
+                                                            <div class="detail-row">
+                                                                <p class="detail-label">Montant:</p>
+                                                                <p class="detail-value"><?= number_format($participant->amount, 2, ',', ' ') ?> €</p>
+                                                            </div>
+                                                            <div class="detail-row">
+                                                                <p class="detail-label">Invitation:</p>
+                                                                <?php if ($participant->getInvitation() === 'Confirmé') { ?>
+                                                                    <p class="status confirmed">Confirmé</p>
+                                                                <?php } else { ?>
+                                                                    <p class="status pending">En attente</p>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <div class="detail-row">
+                                                                <p class="detail-label">Paiement:</p>
+                                                                <?php if ($participant->getPayment() === 'Confirmé') { ?>
+                                                                    <p class="status confirmed">Confirmé</p>
+                                                                <?php } else { ?>
+                                                                    <p class="status pending">En attente</p>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        <?php } else { ?>
+                                            <p class="no-participants">Aucun participant</p>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <p class="no-categories">Aucune catégorie dans ce budget</p>
+                <?php } ?>
+
+                <div class="budget-actions">
+                    <a href="index.php?route=edit-budget&id=<?= $budget->id ?>" class="button-icon">Modifier</a>
+                    <a href="index.php?route=delete-budget&id=<?= $budget->id ?>" class="button-icon">Supprimer</a>
+                </div>
+            </section>
+        <?php } ?>
+    <?php } ?>
+
+    <div class="budget-controls">
+        <a href="index.php?route=add-budget" class="button">Ajouter un budget</a>
+    </div>
+</div>

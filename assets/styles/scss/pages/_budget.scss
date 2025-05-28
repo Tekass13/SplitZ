@@ -1,0 +1,173 @@
+@use '../abstracts/mixin' as *;
+@use '../abstracts/variables' as *;
+
+.budgets-list {
+    @include flex(column, center, center);
+    gap: 1em;
+}
+
+.budget-header {
+    @include flex(column, center, center);
+    text-align: center;
+    width: 100%;
+
+    h2 {
+        margin-top: .5em;
+    }
+
+    .budget-title {
+        @include flex-align(center, center, column);
+    }
+
+    .budget-date,
+    .budget-creator {
+        color: $greyLight;
+        margin: .125em 0;
+    }
+}
+
+.budget-total {
+    background-color: $grey;
+    padding: .3em;
+    border-radius: 2em;
+    width: 80%;
+    max-width: 800px;
+
+    .total-amount {
+        font-weight: bold;
+        color: $dark;
+        margin: 0;
+    }
+}
+
+.budget-categories {
+    @include flex(column, center, center);
+    background-color: $grey;
+    margin-top: 2em;
+    padding: .3em;
+    border-radius: 2em;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+
+    h2 {
+        margin-top: .5em;
+    }
+
+    h3 {
+        text-align: center;
+    }
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
+    width: 100%;
+    max-width: 800px;
+}
+
+.category-card {
+    border: 1px solid $light;
+    border-radius: .3em;
+    @include flex-align(center, center, column);
+    padding: 1em;
+
+    .category-header {
+        @include flex-align(center, center, column);
+        text-align: center;
+        width: 100%;
+    }
+
+    .category-icon {
+        font-size: 1.25em;
+        margin-bottom: .5em;
+        color: $primary;
+    }
+
+    .category-info {
+        @include flex-align(center, center, column);
+        margin-bottom: .75em;
+
+        .category-name {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .category-price {
+            color: $primary;
+            font-weight: bold;
+        }
+    }
+
+    .category-participants {
+        .participants-table {
+            display: none;
+        }
+
+        .participants-cards {
+            @include flex-align(center, center, column);
+            gap: .75em;
+            width: 100%;
+        }
+    }
+}
+
+.participant-card {
+    border: 1px solid $greyLight;
+    background-color: $light;
+    border-radius: .5em;
+    padding: .5em;
+    margin: 2em;
+
+    .participant-header {
+        @include flex-nav;
+        margin-bottom: .5em;
+
+        .participant-name {
+            color: $greyLight;
+        }
+
+        .unique-id {
+            font-size: .6875rem;
+            color: $greyLight;
+        }
+    }
+
+    .participant-details {
+        @include flex-align(center, center, column);
+        gap: .5em;
+
+        .detail-row {
+            @include flex-nav;
+
+            .detail-label {
+                color: $dark;
+                padding-left: .3em;
+            }
+
+            .detail-value {
+                font-weight: bold;
+                color: $greenLight;
+                margin-left: .3em;
+            }
+        }
+    }
+}
+
+.budget-actions {
+    display: flex;
+    margin-top: 1em;
+    @include flex-align;
+
+    .cancel {
+        @include flex-align(column, center, center);
+        padding: .5em;
+        margin-left: .5em;
+    }
+}
+
+.budget-controls {
+    margin-top: 1.5em;
+    text-align: center;
+}

@@ -1,0 +1,54 @@
+@use '../abstracts/variables' as *;
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+h2,
+h3 {
+    color: $primary;
+}
+
+h1 {
+    font-size: 1.750rem;
+}
+
+h2 {
+    font-size: 1.250rem;
+}
+
+h3 {
+    font-size: 1.150rem;
+}
+
+a {
+    text-decoration: none;
+    color: $primary;
+
+    &:hover {
+        color: $grey;
+        cursor: pointer;
+    }
+}
+
+li {
+    list-style: none;
+}
