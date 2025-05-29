@@ -17,7 +17,7 @@ No means of payment or external messaging, everything goes in the application.
 
 - **PHP**> = 7.4
 - **MySQL**> = 5.7 or **Mariadb**> = 10.2
-- **Composer** (to manage PHP dependencies)
+- [**Composer**](https://getcomposer.org/doc/00-intro.md) (to manage PHP dependencies)
 - **Local web server** (Xampp, Wamp, Mamp, or Integrated PHP server)
 
 ## Facility
@@ -43,7 +43,7 @@ composer install
 ### 4. Configuration of the environment
 
 ```bash
-# Copier le fichier d'exemple
+# Copy exemple file
 cp .env.example .env
 ```
 
@@ -68,15 +68,9 @@ CREATE DATABASE splitz_bdd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 #### Import the structure/data
 
 ```bash
-# Si vous avez un fichier SQL
-mysql -u your_username -p splitz_bdd.sql
-
 # If you have a SQL file
-
-MySQL -U your_username -p splitz_bdd.sql
-
+mysql -u your_username -p splitz_bdd.sql
 # Or via phpmyadmin: import the SQL file provided
-
 ```
 
 ### 6. Launch of the server
