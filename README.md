@@ -24,141 +24,72 @@ No means of payment or external messaging, everything goes in the application.
 
 ### 1. Clone Restitory
 
-`bash
-git clone https://github.com/tekass13/splitz.git
-CD Splitz` `
+```bash
+git clone https://github.com/Tekass13/SplitZ.git
+cd SplitZ
+```
 
 ### 2. Install PHP outbuildings
 
-`bash
-Install compose` `
+```bash
+composer install
+```
 
 ### 3. Configuration of the environment
 
-`` bash
+```bash
+# Copier le fichier d'exemple
+cp .env.example .env
+```
 
-# Copy the example file
+Modify the file `.env` with your database settings:
 
-cp .Well.
-`` `
-
-Modify the file `. Bid with your database settings:
-
-`sending
-Db_host = localhost
-Db_name = nom_de_re_base
-Db_user = your_Ustilizer
-Db_password = your_mot_de_passe
-Db_port = 3306` `
+```env
+DB_HOST=localhost
+DB_NAME=nom_de_votre_base
+DB_USER=votre_utilisateur
+DB_PASSWORD=votre_mot_de_passe
+DB_PORT=3306
+```
 
 ### 4. Database
 
 #### Create the database
 
-`sql
-Create database nom_de_tre_base character set utf8mb4 collate utf8mb4_unicode_ci;` `
+```sql
+CREATE DATABASE splitz_bdd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
 #### Import the structure/data
 
-`` bash
+```bash
+# Si vous avez un fichier SQL
+mysql -u your_username -p splitz_bdd.sql
 
 # If you have a SQL file
 
-MySQL -U your_Utilizer -p Splitz_Bdd.sql
+MySQL -U your_username -p splitz_bdd.sql
 
 # Or via phpmyadmin: import the SQL file provided
 
-`` `
+```
 
 ### 5. Launch of the server
 
 #### Option A: Integrated PHP server
 
-`bash
-PHP -s Localhost: 8000` `
+```bash
+php -S localhost:8000
+```
 
 #### Option B: Xampp/Wamp/Mamp
 
-1. Place the project in the HTDOCS`(XAMPP) or`www` (WAMP) folder
+1. Place the project in the `HTDOCS`(XAMPP) or `www` (WAMP) folder
 2. Start Apache and MySQL
-3. Access `http: // localhost/nom-du-projet`
+3. Access `http://localhost/SplitZ`
 
 ## Access to application
 
--** Main URL **: `http: // Localhost: 8000` (PHP server) or` http: // Localhost/Nom-du-Projet` (Xampp/Wamp)
+-** Main URL **: `http://Localhost:8000` (PHP server) or `http://Localhost/SplitZ` (Xampp/Wamp)
 
-- ** phpmyadmin **: `http: // localhost/phpmyadmin` (if xampp/wamp)
-
-## Project structure
-
-`` `
-your project/
-├├ index.php # Home page
-├├ Config/
-│ └ └ Database.Php # BDD configuration
-├ asse Assets/
-│ ├ ├ CSS/ # CSS files
-│ ├ ├ JS/ # JavaScript files
-│ └ └ Images/ # Images
-├ ─ Includes/ # reusable PHP files
-├ Database/
-│ └ └ Schema.sql # Database structure
-├ ─. Welcome # environment variables (example)
-├├. ENV # Environment variables (to be created)
-├├ compose.json # PHP outbuildings
-└└ Readme.md `` `
-
-## Current problems
-
-### Connection error to the database
-
-- Check that MySQL is started
-- Check the identifiers in the file `.
-- Make sure the database exists
-
-### 500 error (internal server error)
-
-- Check the PHP error logs
-- Make sure all the outbuildings are installed with `Settle
-
-### File permissions (Linux/Mac)
-
-`bash
-sudo chmod -r 755 your project/
-sudo chown -r www-data: www-data your project/` `
-
-## Environment variables available
-
-Here are the variables you can configure in your file `.
-
-`` sending
-
-# Database
-
-Db_host = localhost
-Db_name = nom_base
-Db_user = user
-Db_password = word_de_passe
-Db_port = 3306
-
-# Application configuration
-
-App_env = development
-App_debug = True
-App_URL = http: // localhost: 8000
-
-# Email (if applicable)
-
-Mail_host = smtp.gmail.com
-Mail_port = 587
-Mail_username=votre-mail@gmail.com
-Mail_password = your-a-one-pass
-`` `
-
-## Contribution
-
-1. Forke the project
-2. Create a branch for your functionality (`checkout git -b feature/new -functionalite`)
-3. Commit your changes (`git commit -am 'Addition of a new feature')
-4. Pushez to the branch (`Git Push Origin Feature/New Function Note
-5. Open a Request sweater
+- ** phpmyadmin **: `http://localhost/phpmyadmin` (if xampp/wamp)
