@@ -1,6 +1,6 @@
 # SplitZ
 
-Ce projet a été développer pour l'otention de la certification au [titre RNCP 37674](https://www.francecompetences.fr/recherche/rncp/37674/) développeur web et web mobile avec la collaboration de la 3WAcademy.
+Ce projet a été développer pour l'otention de la certification au [titre RNCP 37674](https://www.francecompetences.fr/recherche/rncp/37674/) développeur web et web mobile avec la collaboration de la [3WAcademy](https://3wacademy.fr/).
 
 ## Lien du site en ligne:
 
