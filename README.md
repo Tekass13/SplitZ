@@ -69,7 +69,7 @@ CREATE DATABASE splitz_bdd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ```bash
 # If you have a SQL file
-mysql -u your_username -p splitz_bdd.sql
+mysql -u your_username -p splitz_bdd.sql < database/schema.sql
 # Or via phpmyadmin: import the SQL file provided
 ```
 
