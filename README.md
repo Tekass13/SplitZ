@@ -18,3 +18,23 @@ Pas de moyen de paiement ni de messagerie externe, tout ce passe dans l'applicat
 ```bash
 git clone https://github.com/Tekass13/SplitZ.git
 ```
+
+2. Navigate to the project directory:
+
+```bash
+cd SplitZ
+```
+
+3. Intall [node.js](https://www.geeksforgeeks.org/install-node-js-on-windows/)
+
+4. Initialize the project to genertate 'package.json' file:
+
+```bash
+npm init -y
+```
+
+4. Start your local server:
+
+```bash
+npm run dev
+```
