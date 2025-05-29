@@ -1,161 +1,164 @@
-# SplitZ
+# Splitz
 
-Ce projet a été développer pour l'otention de la certification au [titre RNCP 37674](https://www.francecompetences.fr/recherche/rncp/37674/) développeur web et web mobile avec la collaboration de la [3WAcademy](https://3wacademy.fr/).
+This project was developed for certification for [Title RNCP 37674] (https://www.france incompetences.fr/recherche/rncp/37674/) Mobile web developer with the collaboration of [3wacademy] (https://3wacademy.fr/).
 
-## Lien du site en ligne:
+## Link of the online site:
 
-[e-project.alwaysdata.net](https://e-project.alwaysdata.net)
+[e-project.alwaysdata.net] (https://e-project.alwaysdata.net)
 
 # Description
 
-SplitZ est une application simple et intuitive permettant d'organiser et suivre un budget personnel ou collectif en toute simplicité.
-Pas de moyen de paiement ni de messagerie externe, tout ce passe dans l'application.
+Splitz is a simple and intuitive application allowing to organize and follow a personal or collective budget with ease.
+No means of payment or external messaging, everything goes in the application.
 
-# Installation en local
+# Local installation
 
-## Prérequis
+## Prerequis
 
-- **PHP** >= 7.4
-- **MySQL** >= 5.7 ou **MariaDB** >= 10.2
-- **Composer** (pour gérer les dépendances PHP)
-- **Serveur web local** (XAMPP, WAMP, MAMP, ou serveur PHP intégré)
+- ** PHP **> = 7.4
+- ** MySQL **> = 5.7 or ** Mariadb **> = 10.2
+- ** Composer ** (to manage PHP dependencies)
+- ** Local web server ** (Xampp, Wamp, Mamp, or Integrated PHP server)
 
-## Installation
+## Facility
 
-### 1. Cloner le repository
+### 1. Clone Restitory
 
-```bash
-git clone https://github.com/Tekass13/SplitZ.git
-cd SplitZ
-```
+`bash
+git clone https://github.com/tekass13/splitz.git
+CD Splitz` `
 
-### 2. Installer les dépendances PHP
+### 2. Install PHP outbuildings
 
-```bash
-composer install
-```
+`bash
+Install compose` `
 
-### 3. Configuration de l'environnement
+### 3. Configuration of the environment
 
-```bash
-# Copier le fichier d'exemple
-cp .env.example .env
-```
+`` bash
 
-Modifiez le fichier `.env` avec vos paramètres de base de données :
+# Copy the example file
 
-```env
-DB_HOST=localhost
-DB_NAME=nom_de_votre_base
-DB_USER=votre_utilisateur
-DB_PASSWORD=votre_mot_de_passe
-DB_PORT=3306
-```
+cp .Well.
+`` `
 
-### 4. Base de données
+Modify the file `. Bid with your database settings:
 
-#### Créer la base de données
+`sending
+Db_host = localhost
+Db_name = nom_de_re_base
+Db_user = your_Ustilizer
+Db_password = your_mot_de_passe
+Db_port = 3306` `
 
-```sql
-CREATE DATABASE nom_de_votre_base CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
+### 4. Database
 
-#### Importer la structure/données
+#### Create the database
 
-```bash
-# Si vous avez un fichier SQL
-mysql -u votre_utilisateur -p splitz_bdd.sql
+`sql
+Create database nom_de_tre_base character set utf8mb4 collate utf8mb4_unicode_ci;` `
 
-# Ou via phpMyAdmin : importer le fichier SQL fourni
-```
+#### Import the structure/data
 
-### 5. Lancement du serveur
+`` bash
 
-#### Option A : Serveur PHP intégré
+# If you have a SQL file
 
-```bash
-php -S localhost:8000
-```
+MySQL -U your_Utilizer -p Splitz_Bdd.sql
 
-#### Option B : XAMPP/WAMP/MAMP
+# Or via phpmyadmin: import the SQL file provided
 
-1. Placez le projet dans le dossier `htdocs` (XAMPP) ou `www` (WAMP)
-2. Démarrez Apache et MySQL
-3. Accédez à `http://localhost/nom-du-projet`
+`` `
 
-## Accès à l'application
+### 5. Launch of the server
 
-- **URL principale** : `http://localhost:8000` (serveur PHP) ou `http://localhost/nom-du-projet` (XAMPP/WAMP)
-- **phpMyAdmin** : `http://localhost/phpmyadmin` (si XAMPP/WAMP)
+#### Option A: Integrated PHP server
 
-## Structure du projet
+`bash
+PHP -s Localhost: 8000` `
 
-```
-votre-projet/
-├── index.php          # Page d'accueil
-├── config/
-│   └── database.php   # Configuration BDD
-├── assets/
-│   ├── css/          # Fichiers CSS
-│   ├── js/           # Fichiers JavaScript
-│   └── images/       # Images
-├── includes/         # Fichiers PHP réutilisables
-├── database/
-│   └── schema.sql    # Structure de la base de données
-├── .env.example      # Variables d'environnement (exemple)
-├── .env              # Variables d'environnement (à créer)
-├── composer.json     # Dépendances PHP
-└── README.md
-```
+#### Option B: Xampp/Wamp/Mamp
 
-## Problèmes courants
+1. Place the project in the HTDOCS`(XAMPP) or`www` (WAMP) folder
+2. Start Apache and MySQL
+3. Access `http: // localhost/nom-du-projet`
 
-### Erreur de connexion à la base de données
+## Access to application
 
-- Vérifiez que MySQL est démarré
-- Vérifiez les identifiants dans le fichier `.env`
-- Assurez-vous que la base de données existe
+-** Main URL **: `http: // Localhost: 8000` (PHP server) or` http: // Localhost/Nom-du-Projet` (Xampp/Wamp)
 
-### Erreur 500 (Internal Server Error)
+- ** phpmyadmin **: `http: // localhost/phpmyadmin` (if xampp/wamp)
 
-- Vérifiez les logs d'erreur PHP
-- Assurez-vous que toutes les dépendances sont installées avec `composer install`
+## Project structure
 
-### Permissions de fichiers (Linux/Mac)
+`` `
+your project/
+├├ index.php # Home page
+├├ Config/
+│ └ └ Database.Php # BDD configuration
+├ asse Assets/
+│ ├ ├ CSS/ # CSS files
+│ ├ ├ JS/ # JavaScript files
+│ └ └ Images/ # Images
+├ ─ Includes/ # reusable PHP files
+├ Database/
+│ └ └ Schema.sql # Database structure
+├ ─. Welcome # environment variables (example)
+├├. ENV # Environment variables (to be created)
+├├ compose.json # PHP outbuildings
+└└ Readme.md `` `
 
-```bash
-sudo chmod -R 755 votre-projet/
-sudo chown -R www-data:www-data votre-projet/
-```
+## Current problems
 
-## Variables d'environnement disponibles
+### Connection error to the database
 
-Voici les variables que vous pouvez configurer dans votre fichier `.env` :
+- Check that MySQL is started
+- Check the identifiers in the file `.
+- Make sure the database exists
 
-```env
-# Base de données
-DB_HOST=localhost
-DB_NAME=nom_base
-DB_USER=utilisateur
-DB_PASSWORD=mot_de_passe
-DB_PORT=3306
+### 500 error (internal server error)
 
-# Configuration application
-APP_ENV=development
-APP_DEBUG=true
-APP_URL=http://localhost:8000
+- Check the PHP error logs
+- Make sure all the outbuildings are installed with `Settle
 
-# Email (si applicable)
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=votre-email@gmail.com
-MAIL_PASSWORD=votre-mot-de-passe
-```
+### File permissions (Linux/Mac)
+
+`bash
+sudo chmod -r 755 your project/
+sudo chown -r www-data: www-data your project/` `
+
+## Environment variables available
+
+Here are the variables you can configure in your file `.
+
+`` sending
+
+# Database
+
+Db_host = localhost
+Db_name = nom_base
+Db_user = user
+Db_password = word_de_passe
+Db_port = 3306
+
+# Application configuration
+
+App_env = development
+App_debug = True
+App_URL = http: // localhost: 8000
+
+# Email (if applicable)
+
+Mail_host = smtp.gmail.com
+Mail_port = 587
+Mail_username=votre-mail@gmail.com
+Mail_password = your-a-one-pass
+`` `
 
 ## Contribution
 
-1. Forkez le projet
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Committez vos changements (`git commit -am 'Ajout d'une nouvelle fonctionnalité'`)
-4. Pushez vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Ouvrez une Pull Request
+1. Forke the project
+2. Create a branch for your functionality (`checkout git -b feature/new -functionalite`)
+3. Commit your changes (`git commit -am 'Addition of a new feature')
+4. Pushez to the branch (`Git Push Origin Feature/New Function Note
+5. Open a Request sweater
