@@ -15,10 +15,10 @@ No means of payment or external messaging, everything goes in the application.
 
 ## Prerequis
 
-- ** PHP **> = 7.4
-- ** MySQL **> = 5.7 or ** Mariadb **> = 10.2
-- ** Composer ** (to manage PHP dependencies)
-- ** Local web server ** (Xampp, Wamp, Mamp, or Integrated PHP server)
+- **PHP**> = 7.4
+- **MySQL**> = 5.7 or **Mariadb**> = 10.2
+- **Composer** (to manage PHP dependencies)
+- **Local web server** (Xampp, Wamp, Mamp, or Integrated PHP server)
 
 ## Facility
 
