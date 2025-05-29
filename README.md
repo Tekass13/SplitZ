@@ -10,3 +10,11 @@ Ce projet a été développer pour l'otention de la certification au [titre RNCP
 
 SplitZ est une application simple et intuitive permettant d'organiser et suivre un budget personnel ou collectif en toute simplicité.
 Pas de moyen de paiement ni de messagerie externe, tout ce passe dans l'application.
+
+# Installation
+
+1. Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/Tekass13/SplitZ.git
+```
