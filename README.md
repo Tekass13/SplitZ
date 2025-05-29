@@ -26,16 +26,21 @@ No means of payment or external messaging, everything goes in the application.
 
 ```bash
 git clone https://github.com/Tekass13/SplitZ.git
+```
+
+### 2. Navigate to the repository
+
+```bash
 cd SplitZ
 ```
 
-### 2. Install PHP outbuildings
+### 3. Install PHP outbuildings
 
 ```bash
 composer install
 ```
 
-### 3. Configuration of the environment
+### 4. Configuration of the environment
 
 ```bash
 # Copier le fichier d'exemple
@@ -52,7 +57,7 @@ DB_PASSWORD=votre_mot_de_passe
 DB_PORT=3306
 ```
 
-### 4. Database
+### 5. Database
 
 #### Create the database
 
@@ -74,7 +79,7 @@ MySQL -U your_username -p splitz_bdd.sql
 
 ```
 
-### 5. Launch of the server
+### 6. Launch of the server
 
 #### Option A: Integrated PHP server
 
