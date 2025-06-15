@@ -24,12 +24,10 @@ class ContactController extends AbstractController
 
             if ($contactManager->insertContact($userId, $identifier)) {
                 $_SESSION['message'] = "Contact ajouté !";
-                header('Location: index.php?route=search-user&status=success');
-                exit;
+                $this->redirect('index.php?route=search-user&status=success');
             } else {
                 $_SESSION['message'] = "Erreur lors de l'ajout";
-                header('Location: index.php?route=search-user&status=error');
-                exit;
+                $this->redirect('index.php?route=search-user&status=errors');
             }
         } else {
             $this->showContacts();

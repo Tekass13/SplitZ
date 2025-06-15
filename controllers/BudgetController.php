@@ -13,6 +13,10 @@ class BudgetController extends AbstractController
     public function listBudgets()
     {
         $userId = $_SESSION['user'];
+        if (!$userId) {
+            $this->redirect('index.php?route=login');
+        }
+
         $budgets = $this->budgetManager->getUserBudgets($userId);
 
         $this->render('budget', ['budgets' => $budgets]);
@@ -21,6 +25,9 @@ class BudgetController extends AbstractController
     public function addBudget()
     {
         $userId = $_SESSION['user'];
+        if (!$userId) {
+            $this->redirect('index.php?route=login');
+        }
         $contacts = $this->contactManager->getAllContacts($userId);
 
         $this->render('add-budget', ['contacts' => $contacts]);
@@ -30,18 +37,22 @@ class BudgetController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = filter_input(INPUT_POST, 'add-budget-title', FILTER_DEFAULT) ?: '';
-            $price = filter_input(INPUT_POST, 'add-budget-price', FILTER_VALIDATE_FLOAT) ?: 0.0;
+            $defaultPrice = filter_input(INPUT_POST, 'add-budget-price', FILTER_DEFAULT) ?: '0';
+            $priceInput = str_replace(',', '.', $defaultPrice);
+            $price = filter_var($priceInput, FILTER_VALIDATE_FLOAT) ?: 0.0;
             $categoriesData = filter_input(INPUT_POST, 'categories_data', FILTER_DEFAULT) ?: '[]';
-
             $categoriesInput = json_decode($categoriesData, true) ?: [];
 
             if (empty($title) || $price <= 0) {
                 $_SESSION['error'] = 'Titre invalide ou prix incorrect';
-                header('Location: index.php?route=add-budget');
+                $this->redirect('index.php?route=add-budget');
                 exit;
             }
 
             $userId = $_SESSION['user'];
+            if (!$userId) {
+                $this->redirect('index.php?route=login');
+            }
             $budgetId = $this->budgetManager->createBudget($title, $price, $userId);
 
             if ($budgetId && !empty($categoriesInput)) {
@@ -75,8 +86,7 @@ class BudgetController extends AbstractController
                 }
             }
 
-            header('Location: index.php?route=budgets');
-            exit;
+            $this->redirect('index.php?route=budgets');
         }
     }
 
@@ -84,8 +94,7 @@ class BudgetController extends AbstractController
     {
         if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
             $_SESSION['error'] = 'ID de budget invalide';
-            header('Location: index.php?route=budgets');
-            exit;
+            $this->redirect('index.php?route=budget');
         }
 
         $budgetId = (int)$_GET['id'];
@@ -96,8 +105,7 @@ class BudgetController extends AbstractController
 
         if (!$budget) {
             $_SESSION['error'] = 'Budget introuvable ou vous n\'avez pas les permissions nécessaires';
-            header('Location: index.php?route=budgets');
-            exit;
+            $this->redirect('index.php?route=budget');
         }
         $contacts = $this->contactManager->getAllContacts($userId);
 
@@ -109,29 +117,47 @@ class BudgetController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!isset($_POST['budget_id']) || !is_numeric($_POST['budget_id'])) {
                 $_SESSION['error'] = 'ID de budget invalide';
-                header('Location: index.php?route=budgets');
-                exit;
+                $this->redirect('index.php?route=budgets');
+                return;
             }
 
             $budgetId = (int)$_POST['budget_id'];
             $title = filter_input(INPUT_POST, 'edit-budget-title', FILTER_DEFAULT) ?: '';
-            $price = filter_input(INPUT_POST, 'edit-budget-price', FILTER_VALIDATE_FLOAT) ?: 0.0;
+
+            // CORRECTION : Utiliser 'edit-budget-price' au lieu de 'add-budget-price'
+            $defaultPrice = filter_input(INPUT_POST, 'edit-budget-price', FILTER_DEFAULT) ?: '0';
+            $priceInput = str_replace(',', '.', $defaultPrice);
+            $price = filter_var($priceInput, FILTER_VALIDATE_FLOAT) ?: 0.0;
             $categoriesData = filter_input(INPUT_POST, 'categories_data', FILTER_DEFAULT) ?: '[]';
 
             $categoriesInput = json_decode($categoriesData, true) ?: [];
 
-            if (empty($title) || $price <= 0) {
-                $_SESSION['error'] = 'Titre invalide ou prix incorrect';
-                header('Location: index.php?route=edit-budget&id=' . $budgetId);
-                exit;
+            // Debug : Afficher les données reçues (à supprimer en production)
+            error_log("Title: " . $title);
+            error_log("Price: " . $price);
+            error_log("Categories data: " . $categoriesData);
+
+            if (empty($title)) {
+                $_SESSION['error'] = 'Titre invalide';
+                $this->redirect('index.php?route=edit-budget&id=' . $budgetId);
+                return;
+            }
+
+            // Permettre un prix à 0 si calculé automatiquement
+            if ($price < 0) {
+                $_SESSION['error'] = 'Prix incorrect';
+                $this->redirect('index.php?route=edit-budget&id=' . $budgetId);
+                return;
             }
 
             $userId = $_SESSION['user'];
             $success = $this->budgetManager->updateBudget($budgetId, $title, $price, $userId);
 
             if ($success) {
+                // Supprimer les anciennes catégories
                 $this->budgetManager->deleteBudgetCategories($budgetId);
 
+                // Ajouter les nouvelles catégories
                 if (!empty($categoriesInput)) {
                     foreach ($categoriesInput as $categoryData) {
                         $category = new Category(
@@ -168,8 +194,7 @@ class BudgetController extends AbstractController
                 $_SESSION['error'] = 'Erreur lors de la mise à jour du budget';
             }
 
-            header('Location: index.php?route=budgets');
-            exit;
+            $this->redirect('index.php?route=budgets');
         }
     }
 
@@ -177,8 +202,7 @@ class BudgetController extends AbstractController
     {
         if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
             $_SESSION['error'] = 'ID de budget invalide';
-            header('Location: index.php?route=budgets');
-            exit;
+            $this->redirect('index.php?route=budgets');
         }
 
         $budgetId = (int)$_GET['id'];
@@ -190,8 +214,7 @@ class BudgetController extends AbstractController
 
             if (!$tokenManager->validateCSRFToken($token)) {
                 $_SESSION['error'] = 'Erreur de sécurité, veuillez réessayer';
-                header('Location: index.php?route=budgets');
-                exit;
+                $this->redirect('index.php?route=budgets');
             }
         }
 
@@ -203,7 +226,6 @@ class BudgetController extends AbstractController
             $_SESSION['error'] = 'Erreur lors de la suppression du budget';
         }
 
-        header('Location: index.php?route=budgets');
-        exit;
+        $this->redirect('index.php?route=budgets');
     }
 }

@@ -10,7 +10,7 @@ let editingCategoryIndex = -1;
  */
 function calculateCategoryAmount() {
     const amountInput = document.getElementById('category-amount');
-    return parseFloat(amountInput.value) || 0;
+    return parseFloat(amountInput.value) || 0.00;
 }
 
 
@@ -18,10 +18,6 @@ function calculateCategoryAmount() {
  * Attache les écouteurs d'événements pour les boutons de suppression de participant.
  */
 function setupParticipantEvents() {
-    // document.querySelectorAll('.remove-participant').forEach(button => {
-    //     // Éviter d'attacher plusieurs fois le même écouteur
-    //     button.replaceWith(button.cloneNode(true));
-    // });
     document.querySelectorAll('.remove-participant').forEach(button => {
          button.addEventListener('click', handleRemoveParticipant);
     });
@@ -34,9 +30,7 @@ function handleRemoveParticipant() {
     const index = parseInt(this.getAttribute('data-index'));
     if (!isNaN(index) && index >= 0 && index < currentParticipants.length) {
         currentParticipants.splice(index, 1);
-        loadParticipantsForCategory(currentParticipants); // Mettre à jour l'affichage
-    } else {
-         console.error("Index de participant invalide pour la suppression:", this.getAttribute('data-index'));
+        loadParticipantsForCategory(currentParticipants);
     }
 }
 
@@ -58,10 +52,10 @@ function loadParticipantsForCategory(participants) {
     }
 
     const totalAmount = calculateCategoryAmount();
-    const amountPerParticipant = participants.length > 0 ? (totalAmount / participants.length): 0;
+    const participantAmount = participants.length > 0 ? (totalAmount / participants.length): 0;
 
     participants.forEach((participant, index) => {
-        participant.amount = parseFloat(amountPerParticipant);
+        participant.amount = parseFloat(participantAmount);
         if (isNaN(participant.amount)) {
             participant.amount = 0;
         }
@@ -79,7 +73,7 @@ function loadParticipantsForCategory(participants) {
         `;
         participantsTable.appendChild(row);
     });
-    setupParticipantEvents(); // Attacher les événements aux nouveaux boutons
+    setupParticipantEvents();
 }
 
 
@@ -114,25 +108,34 @@ function updateBudgetPrice() {
  * Attache les écouteurs d'événements pour les boutons Modifier/Supprimer des catégories.
  */
 function setupCategoryEvents() {
-    let editCategory = document.querySelectorAll('.edit-category');
-    let removeCategory =  document.querySelectorAll('.remove-category');
+    const categoriesList = document.getElementById('categories-list');
+    if (!categoriesList) return;
 
-    // Cloner pour supprimer les anciens écouteurs avant d'en ajouter de nouveaux
-    editCategory.forEach(button => {
-        button.replaceWith(button.cloneNode(true));
-    });
-    editCategory.forEach(button => {
-        button.addEventListener('click', handleEditCategory);
-    });
-
-    removeCategory.forEach(button => {
-        button.replaceWith(button.cloneNode(true));
-    });
-    removeCategory.forEach(button => {
-        button.addEventListener('click', handleRemoveCategory);
-    });
+    categoriesList.removeEventListener('click', handleCategoryClick);
+    
+    categoriesList.addEventListener('click', handleCategoryClick);
 }
 
+/**
+ * Gestionnaire unique pour tous les clics sur les catégories
+ */
+function handleCategoryClick(event) {
+    const target = event.target.closest('button');
+    if (!target) return;
+
+    if (target.classList.contains('edit-category')) {
+        const index = parseInt(target.getAttribute('data-index'));
+        if (!isNaN(index)) {
+            editCategory(index);
+        }
+    } else if (target.classList.contains('remove-category')) {
+        const index = parseInt(target.getAttribute('data-index'));
+        if (!isNaN(index) && index >= 0 && index < categories.length) {
+            categories.splice(index, 1);
+            renderCategories();
+        }
+    }
+}
 
 /**
  * Gère le clic sur le bouton de modification d'une catégorie.
@@ -141,8 +144,6 @@ function handleEditCategory() {
      const index = parseInt(this.getAttribute('data-index'));
      if (!isNaN(index)) {
         editCategory(index);
-     } else {
-        console.error("Index de catégorie invalide pour l'édition:", this.getAttribute('data-index'));
      }
 }
 
@@ -155,11 +156,8 @@ function handleRemoveCategory() {
      if (!isNaN(index) && index >= 0 && index < categories.length) {
         categories.splice(index, 1);
         renderCategories(); // Mettre à jour l'affichage de la liste
-    } else {
-        console.error("Index de catégorie invalide pour la suppression:", this.getAttribute('data-index'));
     }
 }
-
 
 /**
  * Affiche la liste des catégories ajoutées/existantes.
@@ -174,7 +172,7 @@ function renderCategories() {
         categoryElement.className = 'category-item';
 
         // Vérification et formatage des participants
-        let participantsHtml = '<p>Aucun participant</p>'; // Default
+        let participantsHtml = '<p>Aucun participant</p>';
          if (category.participants && category.participants.length > 0) {
             participantsHtml = '<ul>' +
                 category.participants.map(p => {
@@ -188,7 +186,7 @@ function renderCategories() {
         // Vérification et formatage du prix
         const price = parseFloat(category.price);
         const priceDisplay = !isNaN(price) ? price.toFixed(2) : '0.00';
-        const iconClass = typeof category.icon === 'string' ? category.icon : 'fa-question-circle'; // Default icon
+        const iconClass = typeof category.icon === 'string' ? category.icon : 'fa-question-circle';
         const categoryName = typeof category.name === 'string' ? category.name : 'Nom invalide';
 
         categoryElement.innerHTML = `
@@ -226,8 +224,7 @@ function renderCategories() {
  */
 function editCategory(index) {
     if (index < 0 || index >= categories.length) {
-         console.error("Tentative d'édition d'une catégorie avec un index invalide:", index);
-         resetCategoryForm(); // Revenir à un état propre si l'index est mauvais
+         resetCategoryForm();
          return;
     }
 
@@ -282,10 +279,10 @@ function resetCategoryForm() {
 document.addEventListener('DOMContentLoaded', function() {
     isEditMode = window.location.href.includes('edit-budget');
     // Chargement des données initiales (si mode édition)
-    const budgetDataElement = document.getElementById('budget_data');
-    if (isEditMode && budgetDataElement) {
+    const budgetData = document.getElementById('budget_data');
+    if (isEditMode && budgetData) {
         try {
-            const budgetJson = budgetDataElement.value;
+            const budgetJson = budgetData.value;
             budget = JSON.parse(budgetJson);
             if (budget && Array.isArray(budget.categories)) {
                 categories = budget.categories.map(category => ({
@@ -308,12 +305,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (e) {
             console.error("Erreur lors du parsing des données JSON du budget:", e);
-            budget = { categories: [] }; // Réinitialiser en cas d'erreur
+            budget = { categories: [] };
             categories = [];
         }
     } else {
          budget = { categories: [] };
          categories = [];
+    }
+
+    const updateBudgetForm = document.querySelector('form[action="index.php?route=update-budget"]');
+    if (updateBudgetForm) {
+        updateBudgetForm.addEventListener('submit', function(e) {
+            console.log('Formulaire soumis');
+            
+            updateCategoriesData();
+            
+            if (categories.length === 0) {
+                e.preventDefault();
+                alert('Veuillez ajouter au moins une catégorie au budget.');
+                return false;
+            }
+            
+            console.log('Categories à envoyer:', categories);
+            console.log('Categories JSON:', JSON.stringify(categories));
+            
+            return true;
+        });
     }
 
     // --- Attachement des Écouteurs d'Événements ---
@@ -324,29 +341,30 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!contactId) return;
 
             const selectedOption = this.options[this.selectedIndex];
-            const contactText = selectedOption ? selectedOption.textContent.trim() : ''; // Enlever les éspaces
+            const contactText = selectedOption ? selectedOption.textContent.trim() : '';
             const contactUsername = selectedOption ? selectedOption.getAttribute('data-username') : '';
             const contactUniqueId = selectedOption ? selectedOption.getAttribute('data-uniqueid') : '';
 
             // Vérifier si le participant est déjà ajouté
             if (currentParticipants.some(p => p.id == contactId)) {
                 alert('Ce contact est déjà ajouté à la catégorie');
-                this.value = ''; // Réinitialiser le select
+                this.value = '';
                 return;
             }
-             // Ajouter le nouveau participant
-             const newParticipant = {
-                 id: contactId,
-                 name: contactText,
-                 amount: 0,
-                 username: contactUsername,
-                 unique_id: contactUniqueId
-             };
-             currentParticipants.push(newParticipant);
-            loadParticipantsForCategory(currentParticipants); // Recalculer et afficher
-            this.value = ''; // Réinitialiser le select après ajout
+            // Ajouter le nouveau participant
+            const newParticipant = {
+                id: contactId,
+                name: contactText,
+                amount: 0.00,
+                username: contactUsername,
+                unique_id: contactUniqueId
+            };
+            currentParticipants.push(newParticipant);
+            loadParticipantsForCategory(currentParticipants);
+            this.value = '';
         });
     }
+
     const addCategoryButton = document.getElementById('add-category-btn');
     if (addCategoryButton) {
         addCategoryButton.addEventListener('click', () => {
@@ -363,16 +381,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
              // S'assurer que les montants des participants sont corrects avant de sauvegarder
-             const amountPerParticipant = currentParticipants.length > 0 ? (categoryPrice / currentParticipants.length) : 0;
+             const participantAmount = currentParticipants.length > 0 ? (categoryPrice / currentParticipants.length) : 0;
              const finalParticipants = currentParticipants.map(p => ({
-                 ...p, // Garder id, name, username, unique_id
-                 amount: parseFloat(amountPerParticipant) // Mettre à jour le montant
+                 ...p,
+                 amount: parseFloat(participantAmount)
              }));
             if (editingCategoryIndex >= 0) {
                 // --- Mode Edition ---
                 if (editingCategoryIndex < categories.length) {
                     categories[editingCategoryIndex] = {
-                        ...categories[editingCategoryIndex], // Conserver l'ID existant et autres props non modifiées
+                        ...categories[editingCategoryIndex],
                         type: categoryType,
                         name: categoryName,
                         icon: categoryIcon,
@@ -380,7 +398,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         participants: finalParticipants
                     };
                 } else {
-                     console.error("Index d'édition invalide lors de la tentative de mise à jour.");
                      resetCategoryForm();
                      renderCategories();
                      return;
@@ -388,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // --- Mode Ajout ---
                 categories.push({
-                    id: 0, // L'ID sera défini côté serveur si nécessaire
+                    id: 0,
                     type: categoryType,
                     name: categoryName,
                     icon: categoryIcon,
@@ -400,6 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderCategories();
         });
     }
+
     const categoryAmountInput = document.getElementById('category-amount');
     if (categoryAmountInput) {
         categoryAmountInput.addEventListener('input', function() {

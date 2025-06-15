@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as *;
+
+.error-message {
+    color: $alert;
+    margin: 1em 0;
+}

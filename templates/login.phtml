@@ -1,9 +1,18 @@
 <section>
     <form action="index.php?route=check-login" method="POST">
+
         <?php if ($_SESSION['csrf_token']) { ?>
             <input type="hidden" id="csrf_token" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <?php } ?>
+
         <h1>Connexion</h1>
+
+        <?php if (!empty($error)) { ?>
+            <div class="error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php } ?>
+
         <label for="email">Email :</label>
         <input type="email" id="email" name="email" required>
 

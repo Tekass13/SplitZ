@@ -903,6 +903,11 @@ input {
   }
 }
 /* pages */
+.error-message {
+  color: #aa0000;
+  margin: 1em 0;
+}
+
 section form .profil-title {
   color: #ACFFBB;
   padding: 0.2em;

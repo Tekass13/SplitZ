@@ -16,11 +16,46 @@ class AuthController extends AbstractController
             $csrfToken = $tokenManager->generateCSRFToken();
             $_SESSION['csrf_token'] = $csrfToken;
         } else {
-
             $csrfToken = $_SESSION['csrf_token'];
         }
 
-        $this->render("login", ['csrf_token' => $csrfToken]);
+        $error = $_GET['error'] ?? null;
+        $success = $_GET['success'] ?? null;
+        $errorMessage = '';
+        $successMessage = '';
+
+        if ($error) {
+            switch ($error) {
+                case 'empty_fields':
+                    $errorMessage = 'Veuillez remplir tous les champs.';
+                    break;
+                case 'invalid_email':
+                    $errorMessage = 'L\'adresse email n\'est pas valide.';
+                    break;
+                case 'invalid_credentials':
+                    $errorMessage = 'Email ou mot de passe incorrect.';
+                    break;
+                case 'invalid_user':
+                    $errorMessage = 'Aucun compte trouvé avec cette adresse email.';
+                    break;
+                default:
+                    $errorMessage = 'Une erreur est survenue lors de la connexion.';
+            }
+        }
+
+        if ($success) {
+            switch ($success) {
+                case 'password_reset':
+                    $successMessage = 'Votre mot de passe a été réinitialisé avec succès.';
+                    break;
+            }
+        }
+
+        $this->render("login", [
+            'csrf_token' => $csrfToken,
+            'error' => $errorMessage,
+            'success' => $successMessage
+        ]);
     }
 
     public function checkLogin(): void
@@ -70,17 +105,46 @@ class AuthController extends AbstractController
 
     public function register(): void
     {
-
         if (empty($_SESSION['csrf_token'])) {
             $tokenManager = new CSRFTokenManager();
             $csrfToken = $tokenManager->generateCSRFToken();
             $_SESSION['csrf_token'] = $csrfToken;
         } else {
-
             $csrfToken = $_SESSION['csrf_token'];
         }
 
-        $this->render("register", ['csrf_token' => $csrfToken]);
+        $error = $_GET['error'] ?? null;
+        $errorMessage = '';
+
+        if ($error) {
+            switch ($error) {
+                case 'empty_fields':
+                    $errorMessage = 'Tous les champs sont obligatoires.';
+                    break;
+                case 'invalid_email':
+                    $errorMessage = 'L\'adresse email n\'est pas valide.';
+                    break;
+                case 'password_mismatch':
+                    $errorMessage = 'Les mots de passe ne correspondent pas.';
+                    break;
+                case 'weak_password':
+                    $errorMessage = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.';
+                    break;
+                case 'email_exists':
+                    $errorMessage = 'Cette adresse email est déjà utilisée.';
+                    break;
+                case 'creation_failed':
+                    $errorMessage = 'Erreur lors de la création du compte. Veuillez réessayer.';
+                    break;
+                default:
+                    $errorMessage = 'Une erreur est survenue.';
+            }
+        }
+
+        $this->render("register", [
+            'csrf_token' => $csrfToken,
+            'error' => $errorMessage
+        ]);
     }
 
 
@@ -94,27 +158,13 @@ class AuthController extends AbstractController
             $confirmPassword = htmlspecialchars($_POST['confirm-password'], ENT_QUOTES, 'UTF-8') ?? '';
             $token = htmlspecialchars($_POST['csrf_token'], ENT_QUOTES, 'UTF-8') ?? '';
 
-            $user = new User();
-            $user->setUserName($username);
-            $user->setEmail($email);
-            $user->setPassword($password);
-
-            $userManager = new UserManager();
-            $createUser = $userManager->create($user);
-
             $tokenManager = new CSRFTokenManager();
             $validate = $tokenManager->validateCSRFToken($token);
-
-            $passwordManager = new PasswordManager();
-            $verifyedPassword = $passwordManager->validatePassword($_POST['password']);
-            $verifyedEmail = $userManager->findByEmail($email);
-
-
             if (!$validate) {
                 die("Erreur CSRF.");
             }
 
-            if (empty($email) || empty($password) || empty($confirmPassword)) {
+            if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
                 $this->redirect("index.php?route=register&error=empty_fields");
                 return;
             }
@@ -129,18 +179,28 @@ class AuthController extends AbstractController
                 return;
             }
 
+            $passwordManager = new PasswordManager();
+            $verifyedPassword = $passwordManager->validatePassword($_POST['password']);
             if (!$verifyedPassword) {
                 $this->redirect("index.php?route=register&error=weak_password");
                 return;
             }
 
-            if ($verifyedEmail === $email) {
+            $userManager = new UserManager();
+            $verifyedEmail = $userManager->findByEmail($email);
+            if ($verifyedEmail) {
                 $this->redirect("index.php?route=register&error=email_exists");
                 return;
             }
 
-            if ($createUser) {
+            $user = new User();
+            $user->setUserName($username);
+            $user->setEmail($email);
+            $user->setPassword($password);
 
+            $createUser = $userManager->create($user);
+
+            if ($createUser) {
                 $_SESSION['user'] = $user->getId();
                 $_SESSION['username'] = $user->getUserName();
                 $_SESSION['unique_id'] = $user->getUniqueId();

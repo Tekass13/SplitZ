@@ -92,7 +92,6 @@ class BudgetManager extends AbstractManager
         $parameters = ['created_by' => $userId];
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
         return $this->processBudgetResults($results);
     }
 
@@ -248,15 +247,20 @@ class BudgetManager extends AbstractManager
 
         foreach ($participants as $participant) {
             $contactId = $participant['id'];
-            $query = $this->db->prepare("
-                SELECT contact_id FROM contacts_list 
-                WHERE contact_id = :contact_id
-            ");
-            $query->execute([':contact_id' => $contactId]);
-            $contactExists = $query->fetchColumn();
 
-            if (!$contactExists) {
-                continue;
+            $isCreator = ($contactId == $_SESSION['user']);
+
+            if (!$isCreator) {
+                $query = $this->db->prepare("
+                    SELECT contact_id FROM contacts_list 
+                    WHERE contact_id = :contact_id
+                ");
+                $query->execute([':contact_id' => $contactId]);
+                $contactExists = $query->fetchColumn();
+
+                if (!$contactExists) {
+                    continue;
+                }
             }
 
             $checkQuery = $this->db->prepare("
